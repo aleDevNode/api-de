@@ -1,0 +1,288 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "description": "<h3>Um Sitema que utiliza uma API-REST para gerenciar uma locadora de veículos e oferecer varios serviços para device destintos.</h3>",
+        "title": "Loca-Car",
+        "termsOfService": "http://localhost:3000/terms",
+        "contact": {
+            "email": "asovitorio@gmail.com"
+        },
+        "version": "1.0.0"
+    },
+    "host": "http://localhost:3000",
+    "basePath": "/locadora/api/v1",
+    "servers": [
+        {
+            "url": "http://localhost:3000/locadora/api/v1",
+            "description": "BASE-ENDPOINT"
+        }
+    ],
+    "paths": {
+        "/auth": {
+            "post": {
+                "summary": "Autenticação do Sistema",
+                "description": "## Essa rota é responsável em logar um usuário no sistema retornando token de desbloqueio das rotas privadas ##",
+                "tags": [
+                    "Auth"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Auth"
+                            },
+                            "examples": {
+                                "user": {
+                                    "value": {
+                                        "login": "asovitorio",
+                                        "password": "123"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "401": {
+                        "description": "Unauthorized:User or Password invalid!"
+                    },
+                    "200": {
+                        "description": "ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Auth"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/users": {
+            "post": {
+                "summary": "Cadastro de usuários do sistema",
+                "description": "## Essa rota é responsável em cadastrar usuários no sistema ##",
+                "tags": [
+                    "Users"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/User"
+                            },
+                            "examples": {
+                                "user": {
+                                    "value": {
+                                        "id": "88b94933-03ec-4815-87c9-05775f3a9665",
+                                        "name": "Alessandro Barbosa",
+                                        "email": "alebvitorio@gmail.com",
+                                        "login": "asovito",
+                                        "password": "deww333#$@retw"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "401": {
+                        "description": "Unauthorized:token invalid"
+                    },
+                    "400": {
+                        "description": "bad-request:Its not a valid email,Email empty! impossible to register, User empty! impossible to register, Password empty! impossible to register"
+                    },
+                    "200": {
+                        "description": "ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/User"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "summary": "Lista de usuários do sistema",
+                "description": "## Essa rota é responsável em Listar todos os usuários no sistema ##",
+                "tags": [
+                    "Users"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "responses": {
+                    "401": {
+                        "description": "Unauthorized:token invalid"
+                    },
+                    "400": {
+                        "description": "bad-request:error "
+                    },
+                    "200": {
+                        "description": "ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/User"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "summary": "Atualização de usuários do sistema",
+                "description": "## Essa rota é responsável em Atualizar usuários no sistema ##",
+                "tags": [
+                    "Users"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/User"
+                            },
+                            "examples": {
+                                "user": {
+                                    "value": {
+                                        "id": "88b94933-03ec-4815-87c9-05775f3a9665",
+                                        "name": "Alessandro Barbosa vi",
+                                        "email": "alebvitorio@gmail.com",
+                                        "login": "asovito",
+                                        "password": "deww333#$@retw"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "401": {
+                        "description": "Unauthorized:token invalid"
+                    },
+                    "400": {
+                        "description": "bad-request"
+                    },
+                    "200": {
+                        "description": "ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/User"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Exclusão de usuários do sistema",
+                "description": "## Essa rota é responsável em Deletar usuários no sistema ##",
+                "tags": [
+                    "Users"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/User"
+                            },
+                            "examples": {
+                                "user": {
+                                    "value": {
+                                        "id": "88b94933-03ec-4815-87c9-05775f3a9665"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "401": {
+                        "description": "Unauthorized:token invalid"
+                    },
+                    "400": {
+                        "description": "bad-request"
+                    },
+                    "200": {
+                        "description": "ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/User"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "User": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "login": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string"
+                    }
+                }
+            },
+            "Auth": {
+                "type": "object",
+                "properties": {
+                    "login": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "JWT"
+            }
+        }
+    }
+}
