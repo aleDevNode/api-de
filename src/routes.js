@@ -9,13 +9,13 @@ const routes = express.Router();
 routes.post('/auth',authController.auth)
 
 // Routes of Episodes
+routes.use(authApi.auth)
 routes.get('/episodes',episodesController.index)
 routes.get('/episode/:id',episodesController.show)
 routes.get('/episodes/search',episodesController.show)
 routes.post('/episodes',episodesController.create)
 
 // Routes of users
-routes.use(authApi.auth)
 routes.get('/users', usersController.index)
 routes.post('/users', usersController.create)
 routes.put('/users', usersController.update)

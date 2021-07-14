@@ -29,6 +29,7 @@ const episodesController = {
     },
     create: async(req, res) =>{
         try {
+            
             return res.status(200).json({teste:"teste"});
             
         } catch (error) {
