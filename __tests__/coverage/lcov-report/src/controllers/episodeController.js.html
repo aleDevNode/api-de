@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for src/controllers/authController.js</title>
+    <title>Code coverage report for src/controllers/episodeController.js</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../prettify.css" />
     <link rel="stylesheet" href="../../base.css" />
@@ -19,7 +19,7 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../index.html">All files</a> / <a href="index.html">src/controllers</a> authController.js</h1>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">src/controllers</a> episodeController.js</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
@@ -39,7 +39,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/1</span>
+                <span class='fraction'>0/3</span>
             </div>
         
             
@@ -99,31 +99,22 @@
 <a name='L40'></a><a href='#L40'>40</a>
 <a name='L41'></a><a href='#L41'>41</a>
 <a name='L42'></a><a href='#L42'>42</a>
-<a name='L43'></a><a href='#L43'>43</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L43'></a><a href='#L43'>43</a>
+<a name='L44'></a><a href='#L44'>44</a>
+<a name='L45'></a><a href='#L45'>45</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -140,50 +131,65 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span></td><td class="text"><pre class="prettyprint lang-js">const userDataBase = require('../database/services/userDatabase')
-const bcrypt = require('bcrypt')
-const jwt = require('jsonwebtoken')
-require('dotenv').config()
-const JwtKey = process.env.JWT_PASS
-const authController = {
-&nbsp;
-    auth: <span class="fstat-no" title="function not covered" >async (req, res) =&gt; {</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">const episodesDatabase = require('../database/services/episodesDatabase')
+const {Episode,File}= require('../models')
+const {Op} = require('sequelize');
+const episodesController = {
+    index: <span class="fstat-no" title="function not covered" >async (req, res) =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >        try {</span>
-<span class="cstat-no" title="statement not covered" >            const {</span>
-<span class="cstat-no" title="statement not covered" >                login,</span>
-<span class="cstat-no" title="statement not covered" >                password</span>
-<span class="cstat-no" title="statement not covered" >            } = req.body</span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >            const user = await userDataBase.userByEmail(login)</span>
-<span class="cstat-no" title="statement not covered" >         </span>
-<span class="cstat-no" title="statement not covered" >            if (!user) return res.status(401).json({</span>
-<span class="cstat-no" title="statement not covered" >                msg: "User or Password invalid! USER"</span>
-<span class="cstat-no" title="statement not covered" >            });</span>
-<span class="cstat-no" title="statement not covered" >            if (!bcrypt.compareSync(password, user.password)) return res.status(401).json({</span>
-<span class="cstat-no" title="statement not covered" >                msg: "User or Password invalid! PASS"</span>
-<span class="cstat-no" title="statement not covered" >            });</span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >            const usuToken = {</span>
-<span class="cstat-no" title="statement not covered" >                id: user.id,</span>
-<span class="cstat-no" title="statement not covered" >                name: user.name,</span>
-<span class="cstat-no" title="statement not covered" >                email: user.email</span>
-<span class="cstat-no" title="statement not covered" >            }</span>
-<span class="cstat-no" title="statement not covered" >            const token = await jwt.sign(usuToken,JwtKey,{expiresIn:'8h'})</span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >            return res.status(200).json({token})</span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >            // List all episodes whit pagination</span>
+<span class="cstat-no" title="statement not covered" >            const {episodes,total} = await episodesDatabase.findAllEpisodes(req.query);</span>
+<span class="cstat-no" title="statement not covered" >           return res.status(200).json({episodes,total});</span>
 <span class="cstat-no" title="statement not covered" >        } catch (error) {</span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >            return res.status(401).json({</span>
-<span class="cstat-no" title="statement not covered" >                error</span>
-<span class="cstat-no" title="statement not covered" >            })</span>
+<span class="cstat-no" title="statement not covered" >            return res.status(400).json({msg:error});</span>
+<span class="cstat-no" title="statement not covered" >        }</span>
+<span class="cstat-no" title="statement not covered" >    },</span>
+   show: <span class="fstat-no" title="function not covered" >async (req, res)=&gt;{</span>
+<span class="cstat-no" title="statement not covered" >        try {</span>
+<span class="cstat-no" title="statement not covered" >            // Do Filter fo episode by id</span>
+<span class="cstat-no" title="statement not covered" >            if(Object.keys(req.params).length&gt;0){</span>
+<span class="cstat-no" title="statement not covered" >                const episode = await episodesDatabase.findByPkEpisode(req.params);</span>
+<span class="cstat-no" title="statement not covered" >                return res.status(200).json(episode);</span>
+<span class="cstat-no" title="statement not covered" >            } </span>
+<span class="cstat-no" title="statement not covered" >            // Do Filter fo episodes by parametros</span>
+<span class="cstat-no" title="statement not covered" >            if(Object.keys(req.query).length&gt;0){</span>
+<span class="cstat-no" title="statement not covered" >                const {episodes,total} = await episodesDatabase.findSearch(req.query);</span>
+<span class="cstat-no" title="statement not covered" >                return res.status(200).json({episodes,total});</span>
+<span class="cstat-no" title="statement not covered" >            } </span>
+<span class="cstat-no" title="statement not covered" >        } catch (error) {</span>
+<span class="cstat-no" title="statement not covered" >            return res.status(400).json(error);</span>
+<span class="cstat-no" title="statement not covered" >        }</span>
+<span class="cstat-no" title="statement not covered" >    },</span>
+    create: <span class="fstat-no" title="function not covered" >async(req, res) =&gt;{</span>
+<span class="cstat-no" title="statement not covered" >        try {</span>
+<span class="cstat-no" title="statement not covered" >            </span>
+<span class="cstat-no" title="statement not covered" >            return res.status(200).json({teste:"teste"});</span>
+<span class="cstat-no" title="statement not covered" >            </span>
+<span class="cstat-no" title="statement not covered" >        } catch (error) {</span>
+<span class="cstat-no" title="statement not covered" >            </span>
+<span class="cstat-no" title="statement not covered" >            return res.status(400).json({error});</span>
 <span class="cstat-no" title="statement not covered" >        }</span>
 <span class="cstat-no" title="statement not covered" >    }</span>
+&nbsp;
 }
 &nbsp;
-module.exports = authController</pre></td></tr></table></pre>
+module.exports = episodesController
+&nbsp;
+&nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->

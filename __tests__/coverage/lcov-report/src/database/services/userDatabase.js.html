@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">36.46% </span>
+                <span class="strong">14.58% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>35/96</span>
+                <span class='fraction'>14/96</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>2/4</span>
+                <span class='fraction'>0/0</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">40% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/5</span>
+                <span class='fraction'>0/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">36.46% </span>
+                <span class="strong">14.58% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>35/96</span>
+                <span class='fraction'>14/96</span>
             </div>
         
             
@@ -160,32 +160,32 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -254,33 +254,33 @@ const bcrypt = require('bcrypt')
 const uuid = require('../../utils/uuid')
 module.exports = {
 &nbsp;
-    userList: async () =&gt; {
-        try {
-            const user = await User.findAll({
-                attributes: {
-                    exclude: ['password']
-                }
-            })
-            return user
-        } <span class="branch-0 cbranch-no" title="branch not covered" >catch (error) {</span>
+    userList: <span class="fstat-no" title="function not covered" >async () =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >        try {</span>
+<span class="cstat-no" title="statement not covered" >            const user = await User.findAll({</span>
+<span class="cstat-no" title="statement not covered" >                attributes: {</span>
+<span class="cstat-no" title="statement not covered" >                    exclude: ['password']</span>
+<span class="cstat-no" title="statement not covered" >                }</span>
+<span class="cstat-no" title="statement not covered" >            })</span>
+<span class="cstat-no" title="statement not covered" >            return user</span>
+<span class="cstat-no" title="statement not covered" >        } catch (error) {</span>
 <span class="cstat-no" title="statement not covered" >            throw error</span>
 <span class="cstat-no" title="statement not covered" >        }</span>
-    },
-    userByEmail: async (login) =&gt; {
-        try {
-            const user = await User.findOne({
-                where:{
-                    login
-                }
-                // attributes: {
-                //     exclude: ['password']
-                // }
-            })
-            return user
-        } <span class="branch-0 cbranch-no" title="branch not covered" >catch (error) {</span>
+<span class="cstat-no" title="statement not covered" >    },</span>
+    userByEmail: <span class="fstat-no" title="function not covered" >async (login) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >        try {</span>
+<span class="cstat-no" title="statement not covered" >            const user = await User.findOne({</span>
+<span class="cstat-no" title="statement not covered" >                where:{</span>
+<span class="cstat-no" title="statement not covered" >                    login</span>
+<span class="cstat-no" title="statement not covered" >                }</span>
+<span class="cstat-no" title="statement not covered" >                // attributes: {</span>
+<span class="cstat-no" title="statement not covered" >                //     exclude: ['password']</span>
+<span class="cstat-no" title="statement not covered" >                // }</span>
+<span class="cstat-no" title="statement not covered" >            })</span>
+<span class="cstat-no" title="statement not covered" >            return user</span>
+<span class="cstat-no" title="statement not covered" >        } catch (error) {</span>
 <span class="cstat-no" title="statement not covered" >            throw error</span>
 <span class="cstat-no" title="statement not covered" >        }</span>
-    },
+<span class="cstat-no" title="statement not covered" >    },</span>
     userCreate: <span class="fstat-no" title="function not covered" >async (user) =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >        try {</span>
 <span class="cstat-no" title="statement not covered" >           </span>
@@ -349,7 +349,7 @@ module.exports = {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jul 08 2021 22:16:13 GMT-0300 (Horário Padrão de Brasília)
+                at Tue Aug 24 2021 14:53:39 GMT-0300 (Horário Padrão de Brasília)
             </div>
         </div>
         <script src="../../../prettify.js"></script>
