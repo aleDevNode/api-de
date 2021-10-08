@@ -23,11 +23,7 @@ module.exports = {
         allowNull: false,
 
       },
-      published_at: {
-        type: Sequelize.DATE,
-        defaultValue: new Date(),
-
-      },
+     
       thumbnail: {
         type: Sequelize.STRING(255),
         
