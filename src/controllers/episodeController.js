@@ -31,27 +31,28 @@ const episodesController = {
                 const episode = await episodesDatabase.findByPkEpisode(req.params);
                 return res.status(200).json(episode);
             }
-            // Do Filter fo episodes by parametros
-            if (Object.keys(req.query).length > 0) {
-                const {
-                    episodes,
-                    total
-                } = await episodesDatabase.findSearch(req.query);
-                return res.status(200).json({
-                    episodes,
-                    total
-                });
-            }
+        } catch (error) {
+            return res.status(400).json(error);
+        }
+    },
+    search: async (req, res) => {
+
+        try {
+            const {
+                episodes,
+                total
+            } = await episodesDatabase.findSearch(req.query);
+            return res.status(200).json({
+                episodes,
+                total
+            });
         } catch (error) {
             return res.status(400).json(error);
         }
     },
     create: async (req, res) => {
         try {
-
-            return res.status(200).json({
-                teste: "teste"
-            });
+            return res.status(200).json(req.body);
 
         } catch (error) {
 
