@@ -9,15 +9,10 @@ const { v4: uuid } = require('uuid');
 module.exports = {
 
     findAllEpisodes: async (queryParams) => {
-        const {
-            page = 1
-        } = queryParams
+        const {page = 1} = queryParams
         const limit = 2;
         const offset = page < 1 ? 0 : (page - 1) * limit
-        const {
-            count: total,
-            rows: episodes
-        } = await Episode.findAndCountAll({
+        const {count: total,rows: episodes} = await Episode.findAndCountAll({
             offset: parseInt(offset),
             limit,
             attributes: {
@@ -35,18 +30,11 @@ module.exports = {
                 ['createdAt', 'DESC']
             ]
         })
-        return {
-            total,
-            episodes
-        }
+        return {total,episodes}
     },
     findByPkEpisode: async (params) => {
-        const {
-            id
-        } = params
-
+        const {id} = params
         const episode = await Episode.findByPk(id, {
-
             attributes: {
                 exclude: ['updatedAt']
             },
@@ -99,9 +87,9 @@ module.exports = {
         return {episodes,total}
     },
     // ### Metodo responsável em Criar os episodios
-    create: async (body) => {
-              // https://img.youtube.com/vi/WhIfu2Fwi0s/0.jpg
-            // https://www.youtube.com/watch?v=mpKXSe08yqA
+  async create(body) {
+              //URI da imagem => https://img.youtube.com/vi/WhIfu2Fwi0s/0.jpg
+            // URI do videos https://www.youtube.com/watch?v=mpKXSe08yqA
 
            const {title,link,members,description,type,duration} = body
 
@@ -127,7 +115,59 @@ module.exports = {
            if(!episode_id && !file_id) throw 'erro ao cadastrar' + episode_id
 
            return {episode_id,file_id}
-    }
+    },
 
+   async update (body) {
+       
+        const {id,title,link,members,description,type,duration} = body
+        const episodeById = await this.findByPkEpisode({id})
+
+        if(!episodeById) return 'Erro na busca =>' + episodeById
+      
+        const episode = {
+            title:title?title:episodeById.title,
+            members:members?members:episodeById.members,
+            thumbnail:link?`https://img.youtube.com/vi/${link}/0.jpg`:episodeById.thumbnail,
+            description:description?description:episodeById.description
+        } 
+        const file = {
+           
+            url:link?`https://www.youtube.com/watch?v=${link}`:episodeById.url,
+            type:type?type:episodeById.type,
+            duration:duration?duration:episodeById.duration,
+           
+        }
+        const fileUpdate = await File.update(file,{
+            where:{
+                id:episodeById.file.id},
+        })
+        const episodeUpdate = await Episode.update(episode,{
+            where:{
+                id:episodeById.id,
+            }
+        })
+
+        if(!fileUpdate || fileUpdate[0]===0 ) throw 'erro whit file update => ' + fileUpdate
+        if(!episodeUpdate || episodeUpdate[0]===0) throw 'erro whit Episode update => ' + episodeUpdate
+        return {episodeById,msg:"Episode updated successful!"}
+        
+    },
+    
+    async delete (id){
+        const episodeById = await this.findByPkEpisode({id})
+        if(!episodeById) return{error: 'Erro na busca => ' + episodeById}
+        
+        const fileDelete = await File.destroy({
+            where:{id:episodeById.file.id}
+        })
+        const episodeDelete = await Episode.destroy({
+            where:{id}
+        })
+        if(!fileDelete || fileDelete[0]===0 ) throw 'erro whit file update => ' + fileDelete
+        if(!episodeDelete || episodeDelete[0]===0) throw 'erro whit Episode update => ' + episodeDelete
+        return {msg:"Episode deleted successful!"}
+       
+    }  
+    
 
 }

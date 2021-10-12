@@ -15,6 +15,7 @@ routes.get('/episode/:id',episodesController.show)
 routes.get('/episodes/search',episodesController.search)
 routes.post('/episodes',episodesController.create)
 routes.put('/episodes',episodesController.update)
+routes.delete('/episodes',episodesController.delete)
 
 // Routes of users
 routes.get('/users', usersController.index)
