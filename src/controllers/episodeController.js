@@ -1,38 +1,78 @@
-const {Episode,File} = require("../models");
+const episodesDatabase = require('../database/services/episodesDatabase')
+
 const episodesController = {
     index: async (req, res) => {
         try {
-
+            // List all episodes whit pagination
             const {
-                page = 1
-            } = req.query
-            const limit = 2;
-            const offset = page < 1 ? 0 : (page - 1) * limit
-           
-            const{count: total,rows:episodes} = await Episode.findAndCountAll({
-                offset: parseInt(offset),
-                limit,
-                attributes:{exclude:['createdAt','updatedAt']},
-                include:{
-                    model:File,
-                    as:'file',
-                    required:true,
-                    attributes:{
-                        exclude:['createdAt','updatedAt']}
-                },
-                order:[
-                    ['published_at','DESC']
-                  ]
-            })
-
-           console.log(Object.keys(req.query).length>0?true:false)
-           return res.status(200).json({episodes,total});
+                episodes,
+                total
+            } = await episodesDatabase.findAllEpisodes(req.query);
+            return res.status(200).json({
+                episodes,
+                total
+            });
         } catch (error) {
-            return res.status(400).json({msg:error});
+            return res.status(400).json(error);
         }
     },
-parseInt
+    show: async (req, res) => {
+        try {
+            //Do Filter go episode by id
+            if (Object.keys(req.params).length > 0) {
+                const episode = await episodesDatabase.findByPkEpisode(req.params);
+                return res.status(200).json(episode);
+            }
+        } catch (error) {
+            return res.status(400).json(error);
+        }
+    },
+    search: async (req, res) => {
+        try {
+            //Filter the episode by parameters
+            const {
+                episodes,
+                total
+            } = await episodesDatabase.findSearch(req.query);
+            return res.status(200).json({
+                episodes,
+                total
+            });
+        } catch (error) {
+            return res.status(400).json(error);
+        }
+    },
+    create: async (req, res) => {
+        try {
+            const episode = await episodesDatabase.create(req.body)
+            return res.status(200).json(episode);
+
+        } catch (error) {
+
+            return res.status(400).json({
+                error
+            });
+        }
+    },
+    update: async (req, res) => {
+        try {
+            const episode = await episodesDatabase.update(req.body)
+            return res.status(200).json(episode);
+        } catch (error) {
+
+            return res.status(400).json(error);
+        }
+    },
+    delete: async (req, res) =>{
+    try {
+        const episode = await episodesDatabase.delete(req.body.id)
+        return res.status(200).json(episode)
+    } catch (error) {
+        return res.status(400).json(error)
+        
+    }
+    }
+
 }
 
 module.exports = episodesController
-

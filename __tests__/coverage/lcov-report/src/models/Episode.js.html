@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for src/models/User.js</title>
+    <title>Code coverage report for src/models/Episode.js</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../prettify.css" />
     <link rel="stylesheet" href="../../base.css" />
@@ -19,34 +19,34 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../index.html">All files</a> / <a href="index.html">src/models</a> User.js</h1>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">src/models</a> Episode.js</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>54/54</span>
+                <span class='fraction'>60/60</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>1/1</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/1</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>54/54</span>
+                <span class='fraction'>60/60</span>
             </div>
         
             
@@ -110,7 +110,19 @@
 <a name='L51'></a><a href='#L51'>51</a>
 <a name='L52'></a><a href='#L52'>52</a>
 <a name='L53'></a><a href='#L53'>53</a>
-<a name='L54'></a><a href='#L54'>54</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L54'></a><a href='#L54'>54</a>
+<a name='L55'></a><a href='#L55'>55</a>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -164,58 +176,64 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span></td><td class="text"><pre class="prettyprint lang-js">module.exports = (sequelize,DataTypes) =&gt;{
-// Datatypes é parametro obrigatorio para os models do sequelize
-const User = sequelize.define(
-    'User',{
-    id: {
-        allowNull: false,
-        primaryKey: true,
-        type: DataTypes.STRING
-      },
-      name: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-      email: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        unique:true,
-        validate:{
-          isEmail:{
-            msg:'Its not a valid email'
+    const Episode = sequelize.define("Episode",{
+        id: {
+            allowNull: false,
+            primaryKey: true,
+            type: DataTypes.STRING
           },
-          notEmpty:{
-            msg:'Email empty! impossible to register'
-          }
-        }
-      },
-      login: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        unique:true,
-        validate:{
-          notEmpty:{
-            msg:'User empty! impossible to register'
-          }
-        }
-      },    
-      password: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        validate:{
-          notEmpty:{
-            msg:'Password empty! impossible to register'
+          title: {
+            type: DataTypes.STRING(255),
+            allowNull: false,
+            validate:{
+                notEmpty:{
+                  msg:'Title empty! impossible to register'
+                }
+              }
           },
-         
-        }
-      },
-},
-{
-&nbsp;
- tableName: 'users'//nome da tabela
-}
-)
-return User
+          members: {
+            type: DataTypes.STRING(255),
+            allowNull: false,
+            validate:{
+                notEmpty:{
+                  msg:'Members empty! impossible to register'
+                }
+              }
+          },
+          published_at: {
+            type: DataTypes.DATE,
+            defaultValue: new Date(),
+            validate:{
+                notEmpty:{
+                  msg:'Published Date empty! impossible to register'
+                }
+              }
+          },
+          thumbnail: {
+            type: DataTypes.STRING(255),
+            
+            validate:{
+                notEmpty:{
+                  msg:'thumbnail empty! impossible to register'
+                }
+              }
+          },
+          description: {
+            type: DataTypes.TEXT,
+           
+          },
+    },
+    {
+    tableName: 'episodes'//nome da tabela  
+    });
+    Episode.associate = (models) =&gt; {
+      Episode.hasOne(models.File, {
+        foreignKey: "episode_id",
+        as: "file",
+       
+      });
+    };
+    return Episode
 }</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->

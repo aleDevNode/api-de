@@ -23,15 +23,7 @@ module.exports = (sequelize,DataTypes) =>{
                 }
               }
           },
-          published_at: {
-            type: DataTypes.DATE,
-            defaultValue: new Date(),
-            validate:{
-                notEmpty:{
-                  msg:'Published Date empty! impossible to register'
-                }
-              }
-          },
+        
           thumbnail: {
             type: DataTypes.STRING(255),
             
