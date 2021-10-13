@@ -8,8 +8,10 @@ const routes = express.Router();
 // Route of Auth
 routes.post('/auth',authController.auth)
 
+// Authentication Middlewares with JWT
+routes.use(authApi.auth)
+
 // Routes of Episodes
-// routes.use(authApi.auth)
 routes.get('/episodes',episodesController.index)
 routes.get('/episode/:id',episodesController.show)
 routes.get('/episodes/search',episodesController.search)
