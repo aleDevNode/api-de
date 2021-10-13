@@ -9,7 +9,7 @@ const routes = express.Router();
 routes.post('/auth',authController.auth)
 
 // Authentication Middlewares with JWT
-routes.use(authApi.auth)
+// routes.use(authApi.auth)
 
 // Routes of Episodes
 routes.get('/episodes',episodesController.index)
