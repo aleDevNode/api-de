@@ -4,14 +4,8 @@ const episodesController = {
     index: async (req, res) => {
         try {
             // List all episodes whit pagination
-            const {
-                episodes,
-                total
-            } = await episodesDatabase.findAllEpisodes(req.query);
-            return res.status(200).json({
-                episodes,
-                total
-            });
+            const {episodes,total} = await episodesDatabase.findAllEpisodes(req.query);
+            return res.status(200).json({episodes,total});
         } catch (error) {
             return res.status(400).json(error);
         }
@@ -30,14 +24,8 @@ const episodesController = {
     search: async (req, res) => {
         try {
             //Filter the episode by parameters
-            const {
-                episodes,
-                total
-            } = await episodesDatabase.findSearch(req.query);
-            return res.status(200).json({
-                episodes,
-                total
-            });
+            const {episodes,total} = await episodesDatabase.findSearch(req.query);
+            return res.status(200).json({episodes,total});
         } catch (error) {
             return res.status(400).json(error);
         }
@@ -46,12 +34,8 @@ const episodesController = {
         try {
             const episode = await episodesDatabase.create(req.body)
             return res.status(200).json(episode);
-
         } catch (error) {
-
-            return res.status(400).json({
-                error
-            });
+            return res.status(400).json({error});
         }
     },
     update: async (req, res) => {
@@ -59,17 +43,15 @@ const episodesController = {
             const episode = await episodesDatabase.update(req.body)
             return res.status(200).json(episode);
         } catch (error) {
-
             return res.status(400).json(error);
         }
     },
     delete: async (req, res) =>{
-    try {
+        try {
         const episode = await episodesDatabase.delete(req.body.id)
         return res.status(200).json(episode)
     } catch (error) {
         return res.status(400).json(error)
-        
     }
     }
 
