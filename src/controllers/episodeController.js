@@ -32,6 +32,7 @@ const episodesController = {
     },
     create: async (req, res) => {
         try {
+            // Create users
             const episode = await episodesDatabase.create(req.body)
             return res.status(200).json(episode);
         } catch (error) {
