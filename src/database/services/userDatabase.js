@@ -84,6 +84,7 @@ module.exports = {
         return response
     },
     userDelete: async (id) => {
+        console.log(id)
       const response = await User.destroy({
             where: {
                 id

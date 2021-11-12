@@ -1,5 +1,6 @@
 
-
+const jwt = require('jsonwebtoken')
+const mail = require('../email/mail')
 const userDataBase = require('../database/services/userDatabase')
 
 const usersController = {
@@ -9,6 +10,8 @@ const usersController = {
 
             const user = await userDataBase.userList()
 
+          
+            
             res.status(200).json(user)
 
         } catch (error) {
@@ -19,7 +22,8 @@ const usersController = {
     create: async (req, res) => {
         try {
             const user = await userDataBase.userCreate(req.body)
-
+            
+          mail('login',{user},user.email,'DE@DE',"Cadastro de Senha")
             res.status(201).json(user)
 
         } catch (error) {
@@ -30,7 +34,7 @@ const usersController = {
     update: async (req, res) => {
         try {
 
-            const user = await userDataBase.userUpdate(req.body)
+             const user = await userDataBase.userUpdate(req.body)
 
             return res.status(200).json(user)
 
