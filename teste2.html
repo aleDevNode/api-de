@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <style>
+        body {
+
+            background-repeat: no-repeat;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 100vh;
+            background-color: antiquewhite;
+            font-family: Arial, Helvetica, sans-serif;
+
+        }
+
+        .logo {
+            position: fixed;
+            left: 10px;
+            top: 10px;
+        }
+
+        .info {
+            margin-left: 50px;
+            margin-top: 100px;
+        }
+
+        div img {
+            position: fixed;
+            left: 0;
+            width: 50%;
+            opacity: 0.9;
+        }
+
+        span {
+            color: #00BFA6;
+        }
+
+        .info h1 {
+            margin-top: 10px;
+        }
+
+        .form {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 40px;
+        }
+
+        p {
+            font-size: 20px;
+            text-align: justify;
+        }
+
+        a {
+            text-decoration: none;
+            font-size: 1.5rem;
+            background-color: #00BFA6;
+            padding: 12px;
+            text-align: center;
+            color: white;
+            border-radius: 7px;
+            box-shadow: 6px  3px 20px rgba(0, 0, 0, 0.411);
+            transition: all 0.4s linear;
+        }
+        a:hover{
+            background-color: #00bfa6c0;
+            
+        }
+    </style>
+    <title>Nova Senha</title>
+</head>
+
+<body>
+    <img class='logo' src="./src/public/images/Logo DE 2021-2023 CORv1.png" width="100px" alt="">
+    <div class="info">
+        <h1>Seja bem vindo, <span>Alessandro Barbosa Vitorio!</span> </h1>
+        <img src="./src/email/templates/undraw_authentication_fsn5.svg" alt="">
+    </div>
+    <div class="form">
+        <h1><span>Cadastro de Senha</span></h1>
+        <p>Todo e qualquer dados sensiveis está sendo criptografado pela aplicação porém, existem algumas formas de deixar
+            ainda mais seguro o acesso a plataforma, escolhendo uma senha forte, não disponibilizando a terceiros e não
+            deixar salva em computadores comunitários ou públicos...</p>
+        <a href="">Click aqui</a>
+    </div>
+
+
+</body>
+
+</html>

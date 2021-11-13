@@ -2,7 +2,10 @@
 const jwt = require('jsonwebtoken')
 const mail = require('../email/mail')
 const userDataBase = require('../database/services/userDatabase')
+require('dotenv').config()
+const JwtKey = process.env.JWT_PASS
 
+const url = process.env.URI_FRONT_END_PASS
 const usersController = {
 
     index: async (req, res) => {
@@ -21,9 +24,17 @@ const usersController = {
     },
     create: async (req, res) => {
         try {
-            const user = await userDataBase.userCreate(req.body)
+             const user = await userDataBase.userCreate(req.body)
+             const usuToken = {
+                id: user.id,
+                name: user.name,
+                email: user.email
+            }
+               const token =  jwt.sign(usuToken,JwtKey,{expiresIn:'48h'})
+            if(!token)  throw "token invalid!"
             
-          mail('login',{user},user.email,'DE@DE',"Cadastro de Senha")
+            user.url = url
+          mail('login',{user,token},user.email,'DE@DE',"Cadastro de Senha")
             res.status(201).json(user)
 
         } catch (error) {
@@ -33,8 +44,8 @@ const usersController = {
     },
     update: async (req, res) => {
         try {
-
-             const user = await userDataBase.userUpdate(req.body)
+          
+          const user = await userDataBase.userUpdate(req.body)
 
             return res.status(200).json(user)
 
