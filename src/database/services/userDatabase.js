@@ -3,6 +3,7 @@ const {
 } = require('../../models')
 const bcrypt = require('bcrypt')
 const uuid = require('../../utils/uuid')
+const crypto = require('crypto')
 module.exports = {
 
     userList: async () => {
@@ -34,15 +35,15 @@ module.exports = {
     },
     userCreate: async (user) => {
         try {
-           
+           const passRandon = crypto.randomBytes(20)
             const {
                 id,
                 name,
                 email,
                 login,
-                password
+                
             } = user
-            const passwordHash =  bcrypt.hashSync(password,10)
+            const passwordHash =  bcrypt.hashSync(passRandon,10)
             const userCreate = {
                 id:id?id:uuid(),
                 name,
