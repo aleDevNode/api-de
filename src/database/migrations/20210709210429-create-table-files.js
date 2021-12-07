@@ -7,7 +7,7 @@ const {
 module.exports = {
   up: async (queryInterface, Sequelize) => {
 
-    await queryInterface.createTable('file', {
+    await queryInterface.createTable('videos', {
       id: {
         allowNull: false,
         primaryKey: true,
