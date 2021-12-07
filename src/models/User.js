@@ -44,6 +44,26 @@ const User = sequelize.define(
          
         }
       },
+      avatar: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate:{
+          notEmpty:{
+            msg:'avatar empty! impossible to register'
+          },
+         
+        }
+      },
+      status: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        validate:{
+          notEmpty:{
+            msg:'status empty! impossible to register'
+          },
+         
+        }
+      },
 },
 {
 
