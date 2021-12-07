@@ -51,6 +51,9 @@ async create(objct) {
     }
 
 }
+const find = new Base('users')
+const query = find.find({email:'asovitorio@gmail.com'})
+console.log(query);
 
 module.exports = {
     Base

@@ -28,6 +28,10 @@ module.exports = {
         allowNull: false,
        
       },
+      avatar:{
+        type:Sequelize.STRING(255),
+        defaultValue:'avatar.png'
+      },
       status: {
         type: Sequelize.BOOLEAN,
         defaultValue:true
