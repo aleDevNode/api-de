@@ -6,11 +6,10 @@ const id = uuid()
 module.exports = {
   up: async (queryInterface, Sequelize) => {
       await queryInterface.bulkInsert('users', [{
-        id,
-        name: 'Alessandro Barbosa Vitorio',
-        email: process.env.USER_EMAIL,
+        id:"dfb5fa9e-550d-4e00-8428-0ed200b58e2d",
         login: process.env.USER_LOGIN,
         password: bcrypt.hashSync(process.env.USER_PASS,10),
+        member_id:"dfb5fa9e-550d-4e00-8428-0ed200b58e2a",
         created_at: new Date(),
         updated_at: new Date(),
       }], {});

@@ -7,7 +7,7 @@ const {
 module.exports = {
   up: async (queryInterface, Sequelize) => {
 
-    await queryInterface.createTable('file', {
+    await queryInterface.createTable('videos', {
       id: {
         allowNull: false,
         primaryKey: true,
@@ -52,7 +52,7 @@ module.exports = {
   down: async (queryInterface, Sequelize) => {
 
 
-    await queryInterface.dropTable('file');
+    await queryInterface.dropTable('videos');
 
   }
 };

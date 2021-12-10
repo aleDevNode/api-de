@@ -6,12 +6,12 @@ module.exports = (sequelize,DataTypes) =>{
             primaryKey: true,
             type: DataTypes.STRING
           },
-          url: {
+          path: {
             type: DataTypes.STRING(255),
             allowNull: false,
             validate:{
                 notEmpty:{
-                  msg:'URL empty! impossible to register'
+                  msg:'Path empty! impossible to register'
                 }
               }
           },
@@ -24,28 +24,16 @@ module.exports = (sequelize,DataTypes) =>{
                 }
               }
           },
-          duration: {
-            type: DataTypes.INTEGER,
-            validate:{
-                notEmpty:{
-                  msg:'Duration empty! impossible to register'
-                }
-              }
-          },
-          episode_id: {
-            type: DataTypes.STRING(255),
-            allowNull: false,
-          
-          },
+         
     
     },
     {
-        tableName: 'file'  
+        tableName: 'files'  
     });
     File.associate = (models) =>{
-      File.belongsTo(models.Episode,{
-        foreignKey: "episode_id",
-        as: "episode",  
+      File.hasOne(models.Member,{
+        foreignKey: "file_id",
+        as: "file",  
       })
     };
     return File

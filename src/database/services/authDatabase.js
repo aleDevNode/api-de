@@ -1,6 +1,4 @@
-const {
-    User
-} = require('../../models')
+
 const bcrypt = require('bcrypt')
 const userDatabase = require('./userDatabase')
 const jwt = require('jsonwebtoken')
@@ -13,7 +11,8 @@ module.exports = {
             login,
             password
         } = body
-        const user = await userDatabase.userByEmail(login)
+        const user = await userDatabase.userByLogin(login)
+
         if (!user) throw "User or Password invalid! USER"
         if (!bcrypt.compareSync(password, user.password)) throw "User or Password invalid! PASS"
         const usuToken = {
@@ -21,8 +20,9 @@ module.exports = {
             name: user.name,
             email: user.email
         }
-        const token = await jwt.sign(usuToken,JwtKey,{expiresIn:'8h'})
+        const token =  jwt.sign(usuToken,JwtKey,{expiresIn:'8h'})
         if(!token)  throw "token invalid!"
         return {token}
+        
   }
 }

@@ -1,52 +1,53 @@
 module.exports = (sequelize,DataTypes) =>{
-    const Episode = sequelize.define("Episode",{
+    const Video = sequelize.define("Video",{
+
         id: {
             allowNull: false,
             primaryKey: true,
             type: DataTypes.STRING
           },
-          title: {
+          url: {
             type: DataTypes.STRING(255),
             allowNull: false,
             validate:{
                 notEmpty:{
-                  msg:'Title empty! impossible to register'
+                  msg:'URL empty! impossible to register'
                 }
               }
           },
-          members: {
+          type: {
             type: DataTypes.STRING(255),
             allowNull: false,
             validate:{
                 notEmpty:{
-                  msg:'Members empty! impossible to register'
+                  msg:'TYpe empty! impossible to register'
                 }
               }
           },
-        
-          thumbnail: {
-            type: DataTypes.STRING(255),
-            
+          duration: {
+            type: DataTypes.INTEGER,
             validate:{
                 notEmpty:{
-                  msg:'thumbnail empty! impossible to register'
+                  msg:'Duration empty! impossible to register'
                 }
               }
           },
-          description: {
-            type: DataTypes.TEXT,
-           
+          episode_id: {
+            type: DataTypes.STRING(255),
+            allowNull: false,
+          
           },
+    
     },
     {
-    tableName: 'episodes'//nome da tabela  
+        tableName: 'videos'  
     });
-    Episode.associate = (models) => {
-      Episode.hasOne(models.Video, {
+    Video.associate = (models) =>{
+      Video.belongsTo(models.Episode,{
         foreignKey: "episode_id",
-        as: "video",
-       
-      });
+        as: "episode",  
+      })
     };
-    return Episode
+    return Video
+
 }

@@ -4,7 +4,7 @@ const id = uuid()
 module.exports = {
   up: async (queryInterface, Sequelize) => {
   
-    await queryInterface.bulkInsert('file', [{
+    await queryInterface.bulkInsert('videos', [{
       id:uuid(),
       url: "https://storage.googleapis.com/golden-wind/nextlevelweek/05-podcastr/audios/opensource.",
         type: "audio/x-m4a",
@@ -28,7 +28,7 @@ module.exports = {
 
   down: async (queryInterface, Sequelize) => {
     
-     await queryInterface.bulkDelete('file', null, {});
+     await queryInterface.bulkDelete('videos', null, {});
     
   }
 };

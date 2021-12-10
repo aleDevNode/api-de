@@ -8,16 +8,26 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.STRING
       },
-      name: {
-        type: Sequelize.STRING(45),
+      member_id:{
+        type: Sequelize.STRING(255),
         allowNull: false,
+        references: {
+          model: {
+            tableName: 'members'
+          },
+          key: 'id'
+        }
+      },
+      // name: {
+      //   type: Sequelize.STRING(45),
+      //   allowNull: false,
         
-      },
-      email: {
-        type: Sequelize.STRING(45),
-        allowNull: false,
-        unique:true,
-      },
+      // },
+      // email: {
+      //   type: Sequelize.STRING(45),
+      //   allowNull: false,
+      //   unique:true,
+      // },
       login: {
         type: Sequelize.STRING(45),
         allowNull: false,
@@ -28,10 +38,10 @@ module.exports = {
         allowNull: false,
        
       },
-      avatar:{
-        type:Sequelize.STRING(255),
-        defaultValue:'avatar.png'
-      },
+      // avatar:{
+      //   type:Sequelize.STRING(255),
+      //   defaultValue:'avatar.png'
+      // },
       status: {
         type: Sequelize.BOOLEAN,
         defaultValue:true

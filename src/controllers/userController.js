@@ -8,8 +8,26 @@ const url = process.env.URI_FRONT_END_PASS
 const usersController = {
 
     index: async (req, res) => {
+
+     
         try {
             const user = await userDataBase.userList()
+            res.status(200).json(user)
+        } catch (error) {
+            res.status(400).json(error)
+        }
+    },
+    login: async (req, res) => {
+        try {
+            const user = await userDataBase.userByLogin(req.query.login)
+            res.status(200).json(user)
+        } catch (error) {
+            res.status(400).json(error)
+        }
+    },
+    show: async (req, res) => {
+        try {
+            const user = await userDataBase.userById(req.params.id)
             res.status(200).json(user)
         } catch (error) {
             res.status(400).json(error)
