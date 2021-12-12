@@ -78,65 +78,55 @@ module.exports = {
       throw error;
     }
   },
-  // userCreate: async (user) => {
-  //     try {
-  //        const passRandon = crypto.randomBytes(20)
-  //         const {
-  //             id,
-  //             name,
-  //             email,
-  //             login,
+  userCreate: async (member_id) => {
+    try {
+      const passRandon = crypto.randomBytes(20);
 
-  //         } = user
-  //         const passwordHash =  bcrypt.hashSync(passRandon,10)
-  //         const userCreate = {
-  //             id:id?id:uuid(),
-  //             name,
-  //             email,
-  //             login,
-  //             password: passwordHash
-  //         }
-  //         const response = await User.create(userCreate)
-  //         return response
-  //     } catch (error) {
-  //         throw error
-  //     }
-  // },
-  // userUpdate: async (userParams) => {
-  //     const {
-  //         id,
-  //         name,
-  //         email,
-  //         login,
-  //         password
-  //     } = userParams
+      const passwordHash = bcrypt.hashSync(passRandon, 10);
 
-  //     const user = await User.findByPk(id);
+      const member = await Member.findByPk(member_id);
+      const userCreate = {
+        id: uuid(),
+        login: member.rf,
+        password: passwordHash,
+        member_id,
+        status: true,
+      };
 
-  //     const userUpdate = {
-  //         name: name != '' ? name : user.name,
-  //         email: email != '' ? email : user.email,
-  //         login: login != '' ? login : user.login,
-  //         password: password != '' ? bcrypt.hashSync(password, 10) : user.password,
+      const response = await User.create(userCreate);
 
-  //     }
+      const user = {
+        ...response.dataValues,
+        name: member.full_name,
+        email: member.email,
+      };
 
-  //     const response = await User.update(userUpdate, {
-  //         where: {
-  //             id
-  //         }
-  //     })
+      return user;
+    } catch (error) {
+      throw error;
+    }
+  },
+  userUpdate: async (userParams) => {
+    const { id, password } = userParams;
+    const user = await User.findByPk(id);
+    const userUpdate = {
+      password: password != "" ? bcrypt.hashSync(password, 10) : user.password,
+    };
+    const response = await User.update(userUpdate, {
+      where: {
+        id,
+      },
+    });
+    return response;
+  },
+  userDelete: async (id) => {
+      console.log(id)
+    const response = await User.destroy({
+          where: {
+              id
+          }
+      })
 
-  //     return response
-  // },
-  // userDelete: async (id) => {
-  //     console.log(id)
-  //   const response = await User.destroy({
-  //         where: {
-  //             id
-  //         }
-  //     })
-
-  //     return response
-  // }
+      return response
+  }
 };

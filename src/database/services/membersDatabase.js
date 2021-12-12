@@ -1,4 +1,4 @@
-const { Member, File } = require("../../models");
+const { Member, File,User } = require("../../models");
 const { Op } = require("sequelize");
 const { v4: uuid } = require("uuid");
 const memberDatabase = {
@@ -94,6 +94,56 @@ const memberDatabase = {
     const member = await Member.create(memberCreate)
     return member;
   },
+  update: async (body) =>{
+    const {id} = body
+    const member = await Member.findByPk(id,{
+      attributes: {
+        exclude: ["id,createdAt", "updatedAt"],
+      },
+    })
+   
+    const memberUpdadte = {
+      name: body.name ===''?member.name:body.name,
+      func: body.func ===''?member.func:body.func,
+      birth: body.birth ===''?member.birth:body.birth,
+      rf: body.rf ===''?member.rf:body.rf,
+      full_name: body.full_name ===''?member.full_name:body.full_name,
+      email: body.email ===''?member.email:body.email,
+      cellphone: body.cellphone ===''?member.cellphone:body.cellphone,
+      description: body.description ===''?member.description:body.description,
+      time: body.time ===''?member.time:body.time,
+      location: body.location ===''?member.location:body.location,
+      status: body.status ===''?member.status:body.status,
+     
+    }
+   const response = await Member.update(memberUpdadte,{
+     where:{
+       id
+     }
+   })
+    return response
+  },
+  delete: async (body) =>{
+    const {id} = body
+    const user = await User.findOne({
+      where:{
+        member_id:id
+      }
+    })
+    if(user) {
+    await  User.destroy({
+        where:{
+          id:user.id
+        }
+      })
+    }
+    const member = await Member.destroy({
+      where:{
+        id
+      },
+    })
+    return member
+  }
 };
 
 module.exports = memberDatabase;

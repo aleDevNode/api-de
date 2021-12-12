@@ -93,17 +93,22 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       tableName: "members", //nome da tabela
+      underscored: true,
     }
   );
   Member.associate = (models) => {
     Member.hasOne(models.User, {
+      onDelete: 'cascade',
       foreignKey: "member_id",
       as: "user",
+      
     });
 
     Member.belongsTo(models.File,{
         foreignKey: "file_id",
-        as: "file",  
+        as: "file", 
+        
+      
     })
   };
   return Member;

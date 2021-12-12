@@ -33,8 +33,36 @@ myTime:  async (req,res) =>{
     }
 },
 create: async (req,res) =>{
-    const member = await memberDatabase.create(req.body)
-    return  res.status(200).json(member)
+
+    try {
+        const member = await memberDatabase.create(req.body)
+        return  res.status(200).json(member)
+        
+    } catch (error) {
+        
+        return  res.status(400).json(error)
+    }
+},
+update: async (req,res) =>{
+    try {
+        const member = await memberDatabase.update(req.body)
+        return  res.status(200).json(member)
+        
+    } catch (error) {
+        
+        console.log(error);
+        return  res.status(400).json(error)
+    }
+},
+delete: async (req,res) =>{
+    try {
+        const response = await memberDatabase.delete(req.body)
+        return  res.status(200).json(response)
+        
+    } catch (error) {
+        
+        return  res.status(400).json(error)
+    }
 }
 
 }

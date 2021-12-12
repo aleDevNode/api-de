@@ -23,9 +23,11 @@ routes.delete("/episodes", episodesController.delete);
 
 //Routes of Members
 routes.get('/members',membersController.index)
-routes.post('/members',membersController.create)
 routes.get('/members/:id',membersController.show)
 routes.get('/my-time',membersController.myTime)
+routes.post('/members',membersController.create)
+routes.put('/members',membersController.update)
+routes.delete('/members',membersController.delete)
 
 
 // Routes of users

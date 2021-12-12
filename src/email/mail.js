@@ -8,8 +8,8 @@ var transport = nodemailer.createTransport({
   port: 2525,
   auth: {
     user: "60031165afbacc",
-    pass: "6adfdf65311e8c",
-  },
+    pass: "6adfdf65311e8c"
+  }
 });
 async function mail(nameFile,obj,to,from,subject){
   const file = path.resolve("src", "email", "templates", nameFile + '.ejs');

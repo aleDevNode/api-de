@@ -35,7 +35,10 @@ const usersController = {
     },
     create: async (req, res) => {
         try {
-             const user = await userDataBase.userCreate(req.body)
+
+            const {member_id,isUser} = req.body
+            if(!isUser) return res.status(400).json({msg:'error registering the user'})
+             const user = await userDataBase.userCreate(member_id)
              const usuToken = {
                 id: user.id,
                 name: user.name,
@@ -45,6 +48,7 @@ const usersController = {
             if(!token)  throw "token invalid!"
             user.url = url
           mail('login',{user,token},user.email,'DE@DE',"Cadastro de Senha")
+        
             res.status(201).json(user)
         } catch (error) {
             res.status(400).json(error)
@@ -55,7 +59,6 @@ const usersController = {
           const user = await userDataBase.userUpdate(req.body)
             return res.status(200).json(user)
         } catch (error) {
-
             return res.status(400).json(error)
         }
     },

@@ -32,8 +32,10 @@ module.exports = (sequelize,DataTypes) =>{
     });
     File.associate = (models) =>{
       File.hasOne(models.Member,{
+       
         foreignKey: "file_id",
-        as: "file",  
+        as: "file", 
+       
       })
     };
     return File
