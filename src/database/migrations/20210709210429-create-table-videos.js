@@ -52,7 +52,7 @@ module.exports = {
   down: async (queryInterface, Sequelize) => {
 
 
-    await queryInterface.dropTable('file');
+    await queryInterface.dropTable('videos');
 
   }
 };

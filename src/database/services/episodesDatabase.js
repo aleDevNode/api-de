@@ -1,6 +1,6 @@
 const {
     Episode,
-    File
+    Video
 } = require('../../models')
 const {
     Op
@@ -19,8 +19,8 @@ module.exports = {
                 exclude: ['updatedAt']
             },
             include: {
-                model: File,
-                as: 'file',
+                model: Video,
+                as: 'video',
                 required: true,
                 attributes: {
                     exclude: ['createdAt', 'updatedAt', 'episode_id']
@@ -39,8 +39,8 @@ module.exports = {
                 exclude: ['updatedAt']
             },
             include: {
-                model: File,
-                as: 'file',
+                model: Video,
+                as: 'video',
                 required: true,
                 attributes: {
                     exclude: ['createdAt', 'updatedAt', 'episode_id']
@@ -71,8 +71,8 @@ module.exports = {
                 exclude: ['updatedAt']
             },
             include: {
-                model: File,
-                as: 'file',
+                model: Video,
+                as: 'video',
                 required: true,
                 attributes: {
                     exclude: ['createdAt', 'updatedAt', 'episode_id']
@@ -103,14 +103,14 @@ module.exports = {
            
              const {id:episode_id} = await Episode.create(episode)
            
-           const file = {
+           const video = {
                id:uuid(),
                url:`https://www.youtube.com/watch?v=${link}`,
                type,
                duration,
                episode_id
            }
-           const {id:file_id} = await File.create(file)
+           const {id:file_id} = await Video.create(video)
 
            if(!episode_id && !file_id) throw 'erro ao cadastrar' + episode_id
 
@@ -130,14 +130,14 @@ module.exports = {
             thumbnail:link?`https://img.youtube.com/vi/${link}/0.jpg`:episodeById.thumbnail,
             description:description?description:episodeById.description
         } 
-        const file = {
+        const video = {
            
             url:link?`https://www.youtube.com/watch?v=${link}`:episodeById.url,
             type:type?type:episodeById.type,
             duration:duration?duration:episodeById.duration,
            
         }
-        const fileUpdate = await File.update(file,{
+        const videoUpdate = await File.update(video,{
             where:{
                 id:episodeById.file.id},
         })
@@ -147,7 +147,7 @@ module.exports = {
             }
         })
 
-        if(!fileUpdate || fileUpdate[0]===0 ) throw 'erro whit file update => ' + fileUpdate
+        if(!videoUpdate || videoUpdate[0]===0 ) throw 'erro whit file update => ' + videoUpdate
         if(!episodeUpdate || episodeUpdate[0]===0) throw 'erro whit Episode update => ' + episodeUpdate
         return {episodeById,msg:"Episode updated successful!"}
         
@@ -157,13 +157,13 @@ module.exports = {
         const episodeById = await this.findByPkEpisode({id})
         if(!episodeById) return{error: 'Erro na busca => ' + episodeById}
         
-        const fileDelete = await File.destroy({
+        const videoDelete = await Video.destroy({
             where:{id:episodeById.file.id}
         })
         const episodeDelete = await Episode.destroy({
             where:{id}
         })
-        if(!fileDelete || fileDelete[0]===0 ) throw 'erro whit file update => ' + fileDelete
+        if(!videoDelete || videoDelete[0]===0 ) throw 'erro whit file update => ' + videoDelete
         if(!episodeDelete || episodeDelete[0]===0) throw 'erro whit Episode update => ' + episodeDelete
         return {msg:"Episode deleted successful!"}
        

@@ -5,14 +5,18 @@ module.exports = {
   up: async (queryInterface, Sequelize) => {
     
      await queryInterface.bulkInsert('members', [{
-      id,
+      id:'dfb5fa9e-550d-4e00-8428-0ed200b58e2a',
       name: 'Alessandro',
-      function:'TSTJR',
+      func:'TSTJR',
+      birth:'1981-05-01',
       rf:'122.857-9',
-      fullName:'Alessandro Barbosa Vitorio',
-      email: 'asovitoriogmail.com',
+      full_name:'Alessandro Barbosa Vitorio',
+      email: 'asovitorio@gmail.com',
       cellphone:'95496-5202',
-      description:'Funcionario lotado na regional sul desde 2008',
+      time:true,
+      description:'Minha Vida é meu Deus e minha familia',
+      location:'RSU',
+      file_id:'dfb5fa9e-550d-4e00-8428-0ed200b58e2f',
       status:true,
       created_at: new Date(),
       updated_at: new Date(),
