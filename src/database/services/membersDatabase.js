@@ -1,4 +1,4 @@
-const { Member, File,User } = require("../../models");
+const { Member, File, User } = require("../../models");
 const { Op } = require("sequelize");
 const { v4: uuid } = require("uuid");
 const memberDatabase = {
@@ -68,14 +68,28 @@ const memberDatabase = {
     throw "Erro in search time" + error;
   },
   create: async (body) => {
-    const {name,func,birth,rf,full_name, email,cellphone,description,time,location,status,path,type} = body;
+    const {
+      name,
+      func,
+      birth,
+      rf,
+      full_name,
+      email,
+      cellphone,
+      description,
+      time,
+      location,
+      status,
+      path,
+      type,
+    } = body;
 
     const file = {
       id: uuid(),
       path,
       type,
     };
-    const {id} = await File.create(file)
+    const { id } = await File.create(file);
     const memberCreate = {
       id: uuid(),
       name,
@@ -88,48 +102,56 @@ const memberDatabase = {
       description,
       time,
       location,
-      file_id:id,
+      file_id: id,
       status,
     };
-    const member = await Member.create(memberCreate)
+    const member = await Member.create(memberCreate);
     return member;
   },
-  update: async (body) =>{
-    const {id} = body
-    const member = await Member.findByPk(id,{
+  update: async (body) => {
+    const { id } = body;
+    const member = await Member.findByPk(id, {
       attributes: {
         exclude: ["id,createdAt", "updatedAt"],
       },
-    })
-   
+    });
+
     const memberUpdadte = {
-      name: body.name ===''?member.name:body.name,
-      func: body.func ===''?member.func:body.func,
-      birth: body.birth ===''?member.birth:body.birth,
-      rf: body.rf ===''?member.rf:body.rf,
-      full_name: body.full_name ===''?member.full_name:body.full_name,
-      email: body.email ===''?member.email:body.email,
-      cellphone: body.cellphone ===''?member.cellphone:body.cellphone,
-      description: body.description ===''?member.description:body.description,
-      time: body.time ===''?member.time:body.time,
-      location: body.location ===''?member.location:body.location,
-      status: body.status ===''?member.status:body.status,
-     
-    }
-   const response = await Member.update(memberUpdadte,{
-     where:{
-       id
-     }
-   })
-    return response
+      name: body.name === "" ? member.name : body.name,
+      func: body.func === "" ? member.func : body.func,
+      birth: body.birth === "" ? member.birth : body.birth,
+      rf: body.rf === "" ? member.rf : body.rf,
+      full_name: body.full_name === "" ? member.full_name : body.full_name,
+      email: body.email === "" ? member.email : body.email,
+      cellphone: body.cellphone === "" ? member.cellphone : body.cellphone,
+      description:
+        body.description === "" ? member.description : body.description,
+      time: body.time === "" ? member.time : body.time,
+      location: body.location === "" ? member.location : body.location,
+      status: body.status === "" ? member.status : body.status,
+    };
+    const response = await Member.update(memberUpdadte, {
+      where: {
+        id,
+      },
+    });
+    return response;
   },
-  delete: async (body) =>{
-    const {id} = body
-    const user = await User.findOne({
-      where:{
-        member_id:id
-      }
-    })
+  delete: async (body) => {
+    const { id } = body;
+    console.log(id);
+    const member = await Member.findByPk(id, {
+      attributes: ["file_id"],
+      include: {
+        model: User,
+        as: "user",
+        attributes: ["id"],
+      },
+    });
+    
+    const {user,file_id} = member
+
+  
     if(user) {
     await  User.destroy({
         where:{
@@ -137,13 +159,20 @@ const memberDatabase = {
         }
       })
     }
-    const member = await Member.destroy({
+
+    const response = await Member.destroy({
       where:{
         id
       },
     })
-    return member
-  }
+    
+    await File.destroy({
+      where:{
+        id:file_id
+      }
+    })
+    return response;
+  },
 };
 
 module.exports = memberDatabase;
