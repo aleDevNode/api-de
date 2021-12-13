@@ -109,10 +109,13 @@ module.exports = {
     }
   },
   userUpdate: async (userParams) => {
-    const { id, password } = userParams;
+    const { id, password,status } = userParams;
+    
     const user = await User.findByPk(id);
+    console.log(status)
     const userUpdate = {
       password: password != "" ? bcrypt.hashSync(password, 10) : user.password,
+      status,
     };
     const response = await User.update(userUpdate, {
       where: {
