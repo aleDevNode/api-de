@@ -14,7 +14,9 @@ module.exports = {
           attributes: ["id", "name", "func"],
           include: {
             association: "file",
-            attributes: ["id", "path", "type"],
+            attributes: {
+              exclude: ["createdAt", "updatedAt"],
+            },
           },
         },
       });

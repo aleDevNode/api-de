@@ -15,7 +15,13 @@ module.exports = {
       include:{
           model:Member,
           as:'member',
-          attributes:['full_name','email']
+          attributes:['name','full_name','email'],
+          include:{
+            model:File,
+            as:'file',
+            attributes:['id','path']
+
+          }
       }
     });
  

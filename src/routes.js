@@ -4,6 +4,7 @@ const authController = require("./controllers/authController");
 const episodesController = require("./controllers/episodeController");
 const membersController = require('./controllers/memberController')
 const authApi = require("./middlewares/authApi");
+const avatar = require('./middlewares/avatar')
 const routes = express.Router();
 
 // Route of Auth
@@ -25,7 +26,7 @@ routes.delete("/episodes", episodesController.delete);
 routes.get('/members',membersController.index)
 routes.get('/members/:id',membersController.show)
 routes.get('/my-time',membersController.myTime)
-routes.post('/members',membersController.create)
+routes.post('/members',avatar.single("avatar"),membersController.create)
 routes.put('/members',membersController.update)
 routes.delete('/members',membersController.delete)
 

@@ -1,6 +1,9 @@
 const { Member, File, User } = require("../../models");
+const fs = require('fs');
+const path = require('path')
 const { Op } = require("sequelize");
 const { v4: uuid } = require("uuid");
+const avatar = require("../../middlewares/avatar");
 const memberDatabase = {
   findAll: async (queryParams) => {
     const { page = 1 } = queryParams;
@@ -81,12 +84,14 @@ const memberDatabase = {
       location,
       status,
       path,
+      file_name,
       type,
     } = body;
 
     const file = {
       id: uuid(),
       path,
+      file_name,
       type,
     };
     const { id } = await File.create(file);
@@ -148,10 +153,12 @@ const memberDatabase = {
         attributes: ["id"],
       },
     });
-    
-    const {user,file_id} = member
 
-  
+    const {user,file_id} = member
+    
+    const {file_name} = await File.findByPk(file_id)
+    
+ 
     if(user) {
     await  User.destroy({
         where:{
@@ -165,7 +172,12 @@ const memberDatabase = {
         id
       },
     })
-    
+    if(file_name){
+      fs.unlink( path.resolve('src','public','uploads','avatar',file_name),(err)=>{
+        if(err) throw err;
+        console.log('Arquivo deletado da pasta');
+      })
+    }
     await File.destroy({
       where:{
         id:file_id

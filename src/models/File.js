@@ -15,6 +15,16 @@ module.exports = (sequelize,DataTypes) =>{
                 }
               }
           },
+          file_name: {
+            type: DataTypes.STRING(255),
+            allowNull: false,
+            validate:{
+                notEmpty:{
+                  msg:'file_name empty! impossible to register'
+                }
+              }
+          },
+         
           type: {
             type: DataTypes.STRING(255),
             allowNull: false,
