@@ -42,7 +42,8 @@ const usersController = {
              const usuToken = {
                 id: user.id,
                 name: user.name,
-                email: user.email
+                email: user.email,
+                status:user.status
             }
                const token =  jwt.sign(usuToken,JwtKey,{expiresIn:'48h'})
             if(!token)  throw "token invalid!"

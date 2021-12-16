@@ -30,7 +30,7 @@ const memberController = {
     try {
       const member = {
         ...req.body,
-        path: `${process.env.HOST}:${process.env.PORT}/uploads/avatar/${req.file.filename}`,
+        path: `${process.env.URI_END_POINT}/uploads/avatar/${req.file.filename}`,
         file_name:req.file.filename,
         type: req.file.mimetype,
       };
