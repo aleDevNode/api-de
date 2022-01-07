@@ -4,11 +4,24 @@ const episodesController = {
     index: async (req, res) => {
         try {
             // List all episodes whit pagination
-            const {episodes,total} = await episodesDatabase.findAllEpisodes(req.query);
-            return res.status(200).json({episodes,total});
+            const {episodes,total,limit} = await episodesDatabase.findAllEpisodes(req.query);
+          
+            return res.status(200).json({episodes,total,limit});
         } catch (error) {
             return res.status(400).json(error);
         }
+    },
+    list:async (req,res) =>{
+        try {
+           
+            const episodes = await episodesDatabase.findAllEpisodesPages()
+            return res.status(200).json(episodes);
+            
+        } catch (error) {
+            return res.status(400).json(error);
+            
+        }
+
     },
     show: async (req, res) => {
         try {

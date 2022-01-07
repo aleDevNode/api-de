@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path')
 const { Op } = require("sequelize");
 const { v4: uuid } = require("uuid");
-const avatar = require("../../middlewares/avatar");
+
 const memberDatabase = {
   findAll: async (queryParams) => {
     const { page = 1 } = queryParams;
@@ -12,29 +12,30 @@ const memberDatabase = {
     const { count: total, rows: members } = await Member.findAndCountAll({
       offset: parseInt(offset),
       limit,
-      attributes: {
-        exclude: ["updatedAt"],
-      },
+      attributes: ['id','name','rf','func','birth','full_name','email','cellphone','description','time','location','status','gender','createdAt'],
+      required:true,
+          
       include: {
         model: File,
         as: "file",
-        required: true,
         attributes: {
           exclude: ["createdAt", "updatedAt", "file_id"],
         },
+        required:false
       },
-      order: [["full_name", "ASC"]],
+           
+      order: [["rf", "ASC"]],
     });
-    return { total, members };
+   
+  
+    return { total, members,limit};
   },
 
   show: async (params) => {
     const { id } = params;
     try {
       const member = await Member.findByPk(id, {
-        attributes: {
-          exclude: ["updatedAt"],
-        },
+        attributes: ['id','name','func','rf','birth','full_name','email','cellphone','description','time','location','status','gender','createdAt'],
         include: {
           model: File,
           as: "file",
@@ -44,7 +45,24 @@ const memberDatabase = {
           },
         },
       });
-      return member;
+      const user = await User.findOne({
+        where:{
+          member_id :member.id
+        },
+        attributes:{
+          exclude:['password',"createdAt", "updatedAt",]
+        }
+      })
+    //  const memberUser ={
+    //    member,
+    //    user
+    //  }
+    console.log(member);
+     const memuser = {
+       ...member.dataValues,
+       user
+     }
+      return  memuser;
     } catch (error) {
       throw "Erro in search member ->" + error;
     }
@@ -55,9 +73,7 @@ const memberDatabase = {
         where: {
           time: true,
         },
-        attributes: {
-          exclude: ["updatedAt", "file_id"],
-        },
+        attributes: ['id','name','func','birth','full_name','email','cellphone','description','time','location','status','gender','createdAt'],
         include: {
           model: File,
           as: "file",
@@ -86,6 +102,7 @@ const memberDatabase = {
       path,
       file_name,
       type,
+      gender,
     } = body;
 
     const file = {
@@ -107,6 +124,7 @@ const memberDatabase = {
       description,
       time,
       location,
+      gender,
       file_id: id,
       status,
     };
@@ -129,12 +147,12 @@ const memberDatabase = {
       full_name: body.full_name === "" ? member.full_name : body.full_name,
       email: body.email === "" ? member.email : body.email,
       cellphone: body.cellphone === "" ? member.cellphone : body.cellphone,
-      description:
-        body.description === "" ? member.description : body.description,
+      description:body.description === "" ? member.description : body.description,
       time: body.time === "" ? member.time : body.time,
       location: body.location === "" ? member.location : body.location,
       status: body.status === "" ? member.status : body.status,
     };
+    
     const response = await Member.update(memberUpdadte, {
       where: {
         id,
@@ -144,7 +162,7 @@ const memberDatabase = {
   },
   delete: async (body) => {
     const { id } = body;
-    console.log(id);
+   
     const member = await Member.findByPk(id, {
       attributes: ["file_id"],
       include: {
@@ -172,7 +190,7 @@ const memberDatabase = {
         id
       },
     })
-    if(file_name){
+    if(file_name && file_name!='avatar-male.svg' && file_name !='avatar-female.svg'){
       fs.unlink( path.resolve('src','public','uploads','avatar',file_name),(err)=>{
         if(err) throw err;
         console.log('Arquivo deletado da pasta');

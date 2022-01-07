@@ -1,5 +1,5 @@
 node_modules
 ./node_modules
 .env
-.src/public/uploads/avatar/*
-**/*/avatar
+# .src/public/uploads/avatar/*
+# **/*/avatar

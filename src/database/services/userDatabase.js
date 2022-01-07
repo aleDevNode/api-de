@@ -2,6 +2,7 @@ const { User, Member, File } = require("../../models");
 const bcrypt = require("bcrypt");
 const uuid = require("../../utils/uuid");
 const crypto = require("crypto");
+const { Op } = require("sequelize");
 module.exports = {
   userList: async () => {
     try {
@@ -79,6 +80,40 @@ module.exports = {
     } catch (error) {
       throw error;
     }
+  },
+  search: async (query)=>{
+    const fieldName = Object.keys(query)[0]
+    const value = query[fieldName]
+
+    const user = await User.findOne({
+      attributes: {
+        exclude: ["password", "updatedAt", "member_id"],
+      },
+      where: {
+       [fieldName]:{
+         [Op.like]:`${value}`
+       },
+      },
+      include: {
+        model: Member,
+        as: "member",
+        attributes: {
+          exclude: ["createdAt", "updatedAt", "file_id"],
+        },
+        include: {
+          model: File,
+          as: "file",
+          attributes: {
+            exclude: ["createdAt", "updatedAt"],
+          },
+        },
+      },
+    });
+
+    return user
+
+
+
   },
   userCreate: async (member_id) => {
     try {

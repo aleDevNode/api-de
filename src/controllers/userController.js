@@ -33,6 +33,15 @@ const usersController = {
             res.status(400).json(error)
         }
     },
+    search: async (req, res) => {
+        try {
+            const user = await userDataBase.search(req.query)
+            
+            res.status(200).json(user)
+        } catch (error) {
+            res.status(400).json(error)
+        }
+    },
     create: async (req, res) => {
         try {
 

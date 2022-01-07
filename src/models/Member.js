@@ -89,6 +89,9 @@ module.exports = (sequelize, DataTypes) => {
       status: {
         type: DataTypes.BOOLEAN,
       },
+      gender: {
+        type: DataTypes.STRING,
+      },
 
     },
     {
@@ -107,8 +110,6 @@ module.exports = (sequelize, DataTypes) => {
     Member.belongsTo(models.File,{
         foreignKey: "file_id",
         as: "file", 
-        
-      
     })
   };
   return Member;

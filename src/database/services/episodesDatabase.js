@@ -10,7 +10,7 @@ module.exports = {
 
     findAllEpisodes: async (queryParams) => {
         const {page = 1} = queryParams
-        const limit = 2;
+        const limit = 10;
         const offset = page < 1 ? 0 : (page - 1) * limit
         const {count: total,rows: episodes} = await Episode.findAndCountAll({
             offset: parseInt(offset),
@@ -30,7 +30,25 @@ module.exports = {
                 ['createdAt', 'DESC']
             ]
         })
-        return {total,episodes}
+        
+        return {total,episodes,limit}
+    },
+    findAllEpisodesPages: async () =>{
+        const episodes = Episode.findAll({
+            limit:100,
+            include: {
+                model: Video,
+                as: 'video',
+                required: true,
+                attributes: {
+                    exclude: ['createdAt', 'updatedAt', 'episode_id']
+                }
+            },
+            order: [
+                ['createdAt', 'DESC']
+            ]
+        })
+        return episodes
     },
     findByPkEpisode: async (params) => {
         const {id} = params
@@ -105,7 +123,7 @@ module.exports = {
            
            const video = {
                id:uuid(),
-               url:`https://www.youtube.com/watch?v=${link}`,
+               url:`https://www.youtube.com/embed/${link}`,
                type,
                duration,
                episode_id
@@ -121,7 +139,7 @@ module.exports = {
        
         const {id,title,link,members,description,type,duration} = body
         const episodeById = await this.findByPkEpisode({id})
-
+    
         if(!episodeById) return 'Erro na busca =>' + episodeById
       
         const episode = {
@@ -132,14 +150,16 @@ module.exports = {
         } 
         const video = {
            
-            url:link?`https://www.youtube.com/watch?v=${link}`:episodeById.url,
+            url:link?`https://www.youtube.com/embed/${link}`:episodeById.url,
             type:type?type:episodeById.type,
             duration:duration?duration:episodeById.duration,
            
         }
-        const videoUpdate = await File.update(video,{
+        
+        const videoUpdate = await Video.update(video,{
             where:{
-                id:episodeById.file.id},
+                episode_id:id
+            },
         })
         const episodeUpdate = await Episode.update(episode,{
             where:{
