@@ -73,8 +73,7 @@ const memberController = {
         file_name,
         type,
       };
-      // console.log(member);
-      // return res.send({member,file:{path}})
+     
 
       const response = await memberDatabase.create(member);
       return res.status(200).json(response);

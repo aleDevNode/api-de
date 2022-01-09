@@ -3,8 +3,10 @@ const usersController = require("./controllers/userController");
 const authController = require("./controllers/authController");
 const episodesController = require("./controllers/episodeController");
 const membersController = require("./controllers/memberController");
+const homeController = require('./controllers/homeController')
 const authApi = require("./middlewares/authApi");
 const avatar = require("./middlewares/avatar");
+const imagePage = require("./middlewares/imagePage");
 const routes = express.Router();
 
 // Route of Auth
@@ -15,8 +17,11 @@ routes.get("/list-episodes", episodesController.list);
 routes.get("/episodes/search", episodesController.search);
 routes.get("/episode/:id", episodesController.show);
 routes.get("/my-time", membersController.myTime);
+routes.get("/home", homeController.index);
 
- routes.use(authApi.auth);
+routes.put("/home",imagePage.single('capa'),homeController.update);
+
+routes.use(authApi.auth);
 
 // Authentication Middlewares with JWT
 
