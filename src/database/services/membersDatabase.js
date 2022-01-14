@@ -57,7 +57,7 @@ const memberDatabase = {
     //    member,
     //    user
     //  }
-    console.log(member);
+   
      const memuser = {
        ...member.dataValues,
        user

@@ -1,12 +1,12 @@
 'use strict';
-
+require('dotenv').config()
 module.exports = {
   up: async (queryInterface, Sequelize) => {
    
       await queryInterface.bulkInsert('files', [ 
         {
         id:'dfb5fa9e-550d-4e00-8428-0ed200b58e2f',
-        path: 'http://localhost:3000/avatar.svg',
+        path: `${process.env.URI_END_POINT}/avatar.svg`,
         type:'png',
         file_name:'avatar.svg',
         created_at: new Date(),
@@ -15,13 +15,22 @@ module.exports = {
       },
      {
         id:'dfb5fa9e-550d-4e00-8428-0ed200b58e5d',
-        path: 'http://localhost:3000/images/capa.jpg',
-        type:'jpg',
+        path: `${process.env.URI_END_POINT}/images/capa.jpg`,
+        type:'image/jpg',
         file_name:'capa.jpg',
         created_at: new Date(),
         updated_at: new Date(),
         
-      }
+      },
+     {
+        id:'dfb5fa9e-550d-4e00-8428-0ed200b59e5d',
+        path: `${process.env.URI_END_POINT}/about.jpg`,
+        type:'image/jpg',
+        file_name:'about.jpg',
+        created_at: new Date(),
+        updated_at: new Date(),
+        
+      },
     ], {});
    
   },

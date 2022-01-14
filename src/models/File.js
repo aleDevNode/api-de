@@ -34,8 +34,6 @@ module.exports = (sequelize,DataTypes) =>{
                 }
               }
           },
-         
-    
     },
     {
         tableName: 'files'  
@@ -50,6 +48,15 @@ module.exports = (sequelize,DataTypes) =>{
         foreignKey: "file_id",
         as: "home", 
        
+      })
+      File.hasOne(models.About,{
+        foreignKey: "file_id",
+        as: "about", 
+       
+      })
+      File.hasOne(models.Informative,{
+        foreignKey: "file_id",
+        as: "informative", 
       })
      
     };

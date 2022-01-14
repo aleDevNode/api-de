@@ -13,16 +13,19 @@ const homeController = {
     },
     update: async (req,res) =>{
        
+     
         try {
             const body ={
                 ...req.body,
                 ...req.file
             }
+           
             const home = await homeDatabase.update(body)
+         
             return res.status(200).json(home)
             
         } catch (error) {
-            
+            console.log(error);
             return res.status(400).json({error:error.message})
         }
     }

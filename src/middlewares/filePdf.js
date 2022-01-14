@@ -3,17 +3,18 @@ const path = require("path");
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, path.join("src", "public", "uploads", "avatar"));
-    console.log( path.join("src", "public", "uploads", "avatar"));
+    cb(null, path.join("src", "public", "uploads", "files"));
+  
   },
   filename: (req,file,cb) => {
    
-    cb(null, `${Date.now().toString()}-${req.body.name}.${file.originalname.split('.').pop()}`);
+    cb(null, `${Date.now().toString()}-${file.originalname.split(" ").join("_")}`);
+   
   },
 });
 
 const fileFilter = (req, file, cb) => {
-  const isAccepted = ["image/png", "image/jpg", "image/jpeg"].find(
+  const isAccepted = ["image/png", "image/jpg","image/jpeg","application/pdf"].find(
     acceptedFormat => acceptedFormat == file.mimetype
   );
   if (isAccepted) return cb(null, true);
