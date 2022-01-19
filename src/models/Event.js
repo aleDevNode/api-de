@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
-    const Informative = sequelize.define(
-      "Informative",
+    const Event= sequelize.define(
+      "Event",
       {
         id: {
           allowNull: false,
@@ -25,22 +25,22 @@ module.exports = (sequelize, DataTypes) => {
             },
           },
         },
-       file_id:{
-          type: DataTypes.STRING(255),
-          allowNull: false,
-        },
-        
+              
       },
       {
-        tableName: "Informatives",
+        tableName: "events",
       }
     );
-    Informative.associate = (models) => {
-      Informative.belongsTo(models.File, {
-        foreignKey: "file_id",
-        as: "file",
+    Event.associate = (models) => {
+      Event.belongsToMany(models.File, {
+        through:"event_files",
+        as:"files",
+        foreignKey: "event_id",
+        
       });
     };
-    return Informative;
+
+   
+    return Event;
   };
   

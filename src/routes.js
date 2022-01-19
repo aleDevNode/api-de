@@ -5,16 +5,20 @@ const episodesController = require("./controllers/episodeController");
 const membersController = require("./controllers/memberController");
 const homeController = require('./controllers/homeController')
 const aboutController = require('./controllers/aboutController')
+const eventController = require('./controllers/eventController')
 const informativeController = require('./controllers/informativeController')
+
 // Middleware
 const authApi = require("./middlewares/authApi");
 const avatar = require("./middlewares/avatar");
+const eventImage = require("./middlewares/eventImage");
 const filePdf = require("./middlewares/filePdf");
 const imagePage = require("./middlewares/imagePage");
 const routes = express.Router();
 
 // Route of Auth
 routes.post("/auth", authController.auth);
+
 // Routes loading for site
 routes.get("/episodes", episodesController.index);
 routes.get("/list-episodes", episodesController.list);
@@ -23,6 +27,7 @@ routes.get("/episode/:id", episodesController.show);
 routes.get("/my-time", membersController.myTime);
 routes.get("/home", homeController.index);
 routes.get("/about",aboutController.index);
+routes.get("/event",eventController.index);
 routes.get('/informatives',informativeController.index)
 
 
@@ -53,13 +58,16 @@ routes.post("/users", usersController.create);
 routes.put("/users", authApi.auth, usersController.update);
 routes.delete("/users", usersController.delete);
 
-// Routes of Informatives 
 
 // Routes of home update
 routes.put("/home",imagePage.single('capa'),homeController.update);
 
 // Routes of About update
 routes.put("/about",imagePage.single('about'),aboutController.update);
+
+// Routes of carousel update
+routes.post("/event",eventImage.array('carousel',5),eventController.create);
+routes.put("/event",eventImage.array('carousel',5),eventController.update);
 
 // Routes of Informatives
 routes.post('/informatives',filePdf.single("pdf"), informativeController.create)

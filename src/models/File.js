@@ -48,16 +48,25 @@ module.exports = (sequelize,DataTypes) =>{
         foreignKey: "file_id",
         as: "home", 
        
-      })
+      });
       File.hasOne(models.About,{
         foreignKey: "file_id",
         as: "about", 
        
-      })
+      });
       File.hasOne(models.Informative,{
         foreignKey: "file_id",
         as: "informative", 
-      })
+      });
+
+      File.associate = (models) => {
+        File.belongsToMany(models.Event, {
+          foreignKey: "file_id",
+          as:"event",
+        through:"event_files",
+        });
+      };
+  
      
     };
     return File

@@ -14,7 +14,6 @@ const memberDatabase = {
       limit,
       attributes: ['id','name','rf','func','birth','full_name','email','cellphone','description','time','location','status','gender','createdAt'],
       required:true,
-          
       include: {
         model: File,
         as: "file",
