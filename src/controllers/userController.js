@@ -55,9 +55,10 @@ const usersController = {
                 status:user.status
             }
                const token =  jwt.sign(usuToken,JwtKey,{expiresIn:'48h'})
+               const endpoint = `${process.env.HOST}:${process.env.PORT}`
             if(!token)  throw "token invalid!"
             user.url = url
-          mail('login',{user,token},user.email,'DE@DE',"Cadastro de Senha")
+          mail('login',{user,token,endpoint},user.email,'DE@DE',"Cadastro de Senha")
         
             res.status(201).json(user)
         } catch (error) {
