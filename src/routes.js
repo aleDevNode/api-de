@@ -30,7 +30,6 @@ routes.get("/about",aboutController.index);
 routes.get("/event",eventController.index);
 routes.get('/informatives',informativeController.index)
 
-
 routes.use(authApi.auth);
 
 // Authentication Middlewares with JWT
