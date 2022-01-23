@@ -1,9 +1,5 @@
 'use strict';
 
-const {
-  date
-} = require("faker/locale/zh_TW");
-
 module.exports = {
   up: async (queryInterface, Sequelize) => {
 
