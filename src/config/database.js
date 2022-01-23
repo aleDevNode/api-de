@@ -7,7 +7,9 @@ module.exports = {
   database:process.env.DB_DATABASE,
   host: process.env.DB_HOST,
   port: parseInt(process.env.DB_PORT),
-  ssl:true,
+  dialectOptions : { 
+    ssl : true 
+  },
   timezone: "-03:00",
   logging: false,
   define: {
