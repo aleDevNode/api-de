@@ -8,7 +8,9 @@ module.exports = {
   host: process.env.DB_HOST,
   port: parseInt(process.env.DB_PORT),
   dialectOptions : { 
-    ssl : true 
+    ssl : { 
+      rejectUnauthorized : false ,  // muito importante 
+    } 
   },
   timezone: "-03:00",
   logging: false,
