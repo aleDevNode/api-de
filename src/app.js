@@ -22,6 +22,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/api-docs',swaggerUi.serve,swaggerUi.setup(swaggerDocument))
 app.use('/de/api/v1',routes); // rotas
+app.use('/',(req,res)=> res.status(200).json({api:"ok"})); // rotas
 // app.use(routes); // rotas
 
 // catch 404 and forward to error handler
