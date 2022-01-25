@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "pm2 start ./src/bin/www",
+    "start": "pm2 start ./src/bin/www --name=api-de",
     "dev": "nodemon ./src/bin/www --ignore __tests__",
     "pretest": "set NODE_ENV=true & sequelize db:create & sequelize db:migrate",
     "test": "set NODE_ENV=true & jest",
