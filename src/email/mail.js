@@ -2,14 +2,32 @@ const fs = require("fs");
 const nodemailer = require("nodemailer");
 const ejs = require("ejs");
 const path = require('path')
+require('dotenv').config()
+const {google} = require('googleapis')
+const {OAuth2} = google.auth;
+
+const email = process.env.USER_EMAIL
+const clientId = process.env.CLIENT_ID
+const clientSecret = process.env.CLIENT_SECRET
+const refreshToken = process.env.REFRESH_TOKEN
+
+const OAuth2_client = new OAuth2(clientId,clientSecret)
+
+OAuth2_client.setCredentials({refresh_token:refreshToken})
+
+const accessToken = OAuth2_client.getAccessToken();
 
 var transport = nodemailer.createTransport({
-  host: "smtp.mailtrap.io",
-  port: 2525,
+  service:'gmail',
   auth: {
-    user: "60031165afbacc",
-    pass: "6adfdf65311e8c"
-  }
+    type:'OAuth2',
+    user:email,
+    clientId,
+    clientSecret,
+    refreshToken,
+    accessToken
+  },
+ 
 });
 async function mail(nameFile,obj,to,from,subject){
   const file = path.resolve("src", "email", "templates", nameFile + '.ejs');
