@@ -32,7 +32,7 @@ module.exports = (sequelize, DataTypes) => {
         
       },
       {
-        tableName: "Informatives",
+        tableName: "informatives",
       }
     );
     Informative.associate = (models) => {
