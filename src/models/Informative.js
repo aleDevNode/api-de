@@ -35,6 +35,7 @@ module.exports = (sequelize, DataTypes) => {
         tableName: "informatives",
       }
     );
+    
     Informative.associate = (models) => {
       Informative.belongsTo(models.File, {
         foreignKey: "file_id",
