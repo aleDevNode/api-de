@@ -45,9 +45,9 @@ const usersController = {
     create: async (req, res) => {
         try {
 
-            const {member_id,isUser} = req.body
+            const {member_id,isUser,status} = req.body
             if(!isUser) return res.status(400).json({msg:'error registering the user'})
-             const user = await userDataBase.userCreate(member_id)
+             const user = await userDataBase.userCreate(member_id,status)
              const usuToken = {
                 id: user.id,
                 name: user.name,
@@ -74,13 +74,16 @@ const usersController = {
         }
     },
     delete: async (req, res) => {
+
+
+    
         try {
-            const {
-                id
-            } = req.body
-            const user = await userDataBase.userDelete(id)
+           
+            const user = await userDataBase.userDelete(req.params)
             return res.status(200).json(user)
         } catch (error) {
+            console.log(error);
+
             return res.status(400).json(error)
         }
     }

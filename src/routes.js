@@ -29,7 +29,6 @@ routes.get("/home", homeController.index);
 routes.get("/about",aboutController.index);
 routes.get("/event",eventController.index);
 routes.get('/informatives',informativeController.index)
-
 routes.use(authApi.auth);
 
 // Authentication Middlewares with JWT
@@ -55,7 +54,9 @@ routes.get("/user", usersController.login);
 routes.get("/search/user", usersController.search);
 routes.post("/users", usersController.create);
 routes.put("/users", authApi.auth, usersController.update);
-routes.delete("/users", usersController.delete);
+routes.delete("/users/:id", usersController.delete);
+
+
 
 
 // Routes of home update

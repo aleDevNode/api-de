@@ -115,7 +115,7 @@ module.exports = {
 
 
   },
-  userCreate: async (member_id) => {
+  userCreate: async (member_id,status) => {
     try {
       const passRandon = crypto.randomBytes(20);
 
@@ -127,7 +127,7 @@ module.exports = {
         login: member.rf,
         password: passwordHash,
         member_id,
-        status: true,
+        status,
       };
 
       const response = await User.create(userCreate);
@@ -159,11 +159,11 @@ module.exports = {
     });
     return response;
   },
-  userDelete: async (id) => {
-      console.log(id)
+  userDelete: async (idBody) => {
+   
     const response = await User.destroy({
           where: {
-              id
+              id:idBody.id
           }
       })
 
