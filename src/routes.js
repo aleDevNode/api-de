@@ -29,7 +29,7 @@ routes.get("/home", homeController.index);
 routes.get("/about",aboutController.index);
 routes.get("/event",eventController.index);
 routes.get('/informatives',informativeController.index)
-
+routes.get("/members/:id", membersController.show);
 routes.use(authApi.auth);
 
 // Authentication Middlewares with JWT
