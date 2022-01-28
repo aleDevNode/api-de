@@ -1,6 +1,8 @@
 node_modules
 ./node_modules
 .env
-# .src/public/uploads/avatar/*
-# **/*/avatar
-# ale-1228579ALE senha do serviço
+./src/public/*
+./src/public/images/*
+./src/public/uploads/avatar/*
+**/*/avatar
+# ale-1228579ALE senha do serviçodebug.log
