@@ -10,6 +10,7 @@ const eventController = {
     }
   },
   create: async (req,res) =>{
+   
     try {
      
       const files = req.files.map(file =>({
@@ -29,25 +30,25 @@ const eventController = {
   
 
   update: async (req, res) => {
-    console.log(req.body,req.files);
-  
+     console.log(req.files);
     try {
-     
+      
       const files = req.files.map(file =>({
         ...file,
         path:`${process.env.URI_END_POINT}/images/events/${file.filename}`
       }))
+      
       const body = {
         ...req.body,
         files
       }
       
       const response = await eventDatabase.update(body)
-      
+      console.log(files);
       return res.status(200).json(response);
     } catch (error) {
-   
-      return res.status(400).json({ error});
+ 
+      return res.status(400).json(error);
     }
   },
 };

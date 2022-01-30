@@ -35,8 +35,8 @@ const eventDatabase = {
       type: file.mimetype,
     }));
 
-    filesCreate.map(async (file) => {
-      if (files.length > 0) {
+    if (files.length > 0) {
+   const fileMapCreate= filesCreate.map(async (file) => {
         const fileMap = await File.create(file);
         if (!fileMap) return console.log("no register files");
         await EventFile.create({
@@ -44,9 +44,10 @@ const eventDatabase = {
           file_id: fileMap.id,
           event_id: eventCreate.id,
         });
-      }
-    });
-    return { responseEvent };
+      });
+
+      return { responseEvent,fileMapCreate };
+    }
   },
   update: async (body) => {
     try {
@@ -59,33 +60,36 @@ const eventDatabase = {
           attributes: ["id", "path", "file_name"],
         },
       });
-      if (!event) throw "error whith search pk event!";
+     
+       if (!event) throw "error whith search pk event!";
 
-      await event.files.forEach(async (file) => {
-        fs.unlink(
+      await event.files.forEach((file) => {
+              fs.unlink(
           path.resolve("src", "public", "images", "events", file.file_name),
           (err) => {
             if (err) throw err;
             console.log("Arquivo deletado da pasta=> " + file.file_name);
           }
         );
-       
+                 
+      });
+      const fileDel = event.files.map(async file =>{
         const respDel = await File.destroy({
           where: {
-            id: file.id,
+            id:file.id,
           },
         });
         if (respDel) console.log("file deletado com sucesso!");
-      });
+      })
       const filesCreate = files.map((file) => ({
         id: uuid(),
         path: file.path,
         file_name: file.filename,
         type: file.mimetype,
       }));
-
+   
+      if (filesCreate.length > 0) {
       filesCreate.map(async (file) => {
-        if (files.length > 0) {
           const fileMap = await File.create(file);
           if (!fileMap) return console.log("no register files");
           await EventFile.create({
@@ -93,8 +97,8 @@ const eventDatabase = {
             file_id: fileMap.id,
             event_id: id,
           });
-        }
-      });
+        });
+      }
 
       const eventUpdate = {
         title: title ? title : event.title,
@@ -106,7 +110,8 @@ const eventDatabase = {
           id,
         },
       });
-
+      
+     
       return responseEvent;
     } catch (error) {
       throw error.message;
