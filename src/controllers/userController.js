@@ -3,7 +3,6 @@ const mail = require('../email/mail')
 const userDataBase = require('../database/services/userDatabase')
 require('dotenv').config()
 const JwtKey = process.env.JWT_PASS
-
 const url = process.env.URI_FRONT_END_PASS
 const usersController = {
 
@@ -58,7 +57,7 @@ const usersController = {
                const endpoint = `${process.env.HOST}:${process.env.PORT}`
             if(!token)  throw "token invalid!"
             user.url = url
-          mail('login',{user,token,endpoint},user.email,'DE@DE',"Cadastro de Senha")
+         mail('login',{user,token,endpoint},user.email,'naoresponda@de-spt.com.br',"Cadastro de Senha")
         
             res.status(201).json(user)
         } catch (error) {

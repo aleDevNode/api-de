@@ -6,7 +6,7 @@ module.exports = {
       await queryInterface.bulkInsert('files', [ 
         {
         id:'dfb5fa9e-550d-4e00-8428-0ed200b58e2f',
-        path: `${process.env.URI_END_POINT}uploads/avatar/avatar-male.svg`,
+        path: `${process.env.URI_END_POINT}/uploads/avatar/1641756163484-Alessandro.jpg`,
         type:'png',
         file_name:'avatar.svg',
         created_at: new Date(),
