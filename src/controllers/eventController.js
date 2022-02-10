@@ -9,6 +9,14 @@ const eventController = {
       return res.status(400).json(error);
     }
   },
+  findByPk: async (req,res) =>{
+    try {
+      const event = await eventDatabase.findByPk(req.params.id)
+      return res.status(200).json(event);
+    } catch (error) {
+      return res.status(400).json(error);
+    }
+  },
   create: async (req,res) =>{
    
     try {

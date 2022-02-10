@@ -7,6 +7,22 @@ const eventDatabase = {
   index: async () => {
     try {
       const event = await Event.findAll({
+        order: [["created_at", "DESC"]],
+        include: {
+          model: File,
+          as: "files",
+          attributes: ["id", "path", "file_name"],
+        },
+      });
+      return event;
+    } catch (error) {
+      throw error.message;
+    }
+  },
+  findByPk:async(id) =>{
+    try {
+      const event = await Event.findByPk(id,{
+       
         include: {
           model: File,
           as: "files",

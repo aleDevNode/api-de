@@ -30,6 +30,7 @@ routes.get("/about",aboutController.index);
 routes.get("/event",eventController.index);
 routes.get('/informatives',informativeController.index)
 routes.get("/members/:id", membersController.show);
+routes.get("/event/:id",eventController.findByPk);
 routes.use(authApi.auth);
 
 // Authentication Middlewares with JWT
@@ -57,9 +58,6 @@ routes.post("/users", usersController.create);
 routes.put("/users", authApi.auth, usersController.update);
 routes.delete("/users/:id", usersController.delete);
 
-
-
-
 // Routes of home update
 routes.put("/home",imagePage.single('capa'),homeController.update);
 
@@ -67,6 +65,7 @@ routes.put("/home",imagePage.single('capa'),homeController.update);
 routes.put("/about",imagePage.single('about'),aboutController.update);
 
 // Routes of carousel update
+
 routes.post("/event",eventImage.array('carousel',5),eventController.create);
 routes.put("/event",eventImage.array('carousel',5),eventController.update);
 
