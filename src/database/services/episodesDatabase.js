@@ -176,9 +176,10 @@ module.exports = {
     async delete (id){
         const episodeById = await this.findByPkEpisode({id})
         if(!episodeById) return{error: 'Erro na busca => ' + episodeById}
+       
         
         const videoDelete = await Video.destroy({
-            where:{id:episodeById.file.id}
+            where:{id:episodeById.video.id}
         })
         const episodeDelete = await Episode.destroy({
             where:{id}

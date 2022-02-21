@@ -92,8 +92,9 @@ const memberController = {
     }
   },
   delete: async (req, res) => {
+    console.log('teste');
     try {
-      const response = await memberDatabase.delete(req.body);
+      const response = await memberDatabase.delete(req.params);
       return res.status(200).json(response);
     } catch (error) {
       return res.status(400).json(error);

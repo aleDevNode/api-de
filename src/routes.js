@@ -40,6 +40,7 @@ routes.get("/new-password:token", authController.newPassword);
 // Routes of Episodes
 routes.post("/episodes", episodesController.create);
 routes.put("/episodes", episodesController.update);
+routes.get("/delete/episodes/:id", episodesController.delete);
 routes.delete("/episodes", episodesController.delete);
 
 //Routes of Members
@@ -48,6 +49,7 @@ routes.get("/members/:id", membersController.show);
 routes.post("/members", avatar.single("avatar"), membersController.create);
 routes.put("/members", membersController.update);
 routes.delete("/members", membersController.delete);
+routes.get("/delete/members/:id", membersController.delete);
 
 // Routes of users
 routes.get("/users", usersController.index);
