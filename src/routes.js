@@ -73,5 +73,7 @@ routes.put("/event",eventImage.array('carousel',5),eventController.update);
 
 // Routes of Informatives
 routes.post('/informatives',filePdf.single("pdf"), informativeController.create)
+routes.delete('/informatives', informativeController.delete)
+routes.get('/delete/informatives/:id',informativeController.delete)
 
 module.exports = routes;

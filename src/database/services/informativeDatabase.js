@@ -47,6 +47,14 @@ const InformativeDatabase = {
     } catch (error) {
       throw error.message
     }
+  },
+  delete: async (id) =>{
+    try {
+      const informative = await Informative.findByPk(id)
+      return informative
+    } catch (error) {
+      throw error.message
+    }
   }
 
 };
