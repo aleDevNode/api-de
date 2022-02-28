@@ -104,6 +104,7 @@ const memberDatabase = {
       gender,
     } = body;
 
+
     const file = {
       id: uuid(),
       path,

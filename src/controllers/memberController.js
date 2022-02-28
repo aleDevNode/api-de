@@ -45,8 +45,9 @@ const memberController = {
       time,
       location,
     } = req.body;
-
-    //  return res.send({body:req.body,file:req.file})
+   
+   
+     
     try {
       const avatar =
         req.body.gender == "M" ? "avatar-male.svg" : "avatar-female.svg";
