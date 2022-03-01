@@ -69,6 +69,8 @@ routes.put("/about",imagePage.single('about'),aboutController.update);
 // Routes of carousel update
 
 routes.post("/event",eventImage.array('carousel',5),eventController.create);
+routes.delete("/event",eventController.delete);
+routes.get("/delete/event/:id",eventController.delete);
 routes.put("/event",eventImage.array('carousel',5),eventController.update);
 
 // Routes of Informatives
