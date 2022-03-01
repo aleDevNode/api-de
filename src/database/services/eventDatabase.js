@@ -19,10 +19,9 @@ const eventDatabase = {
       throw error.message;
     }
   },
-  findByPk:async(id) =>{
+  findByPk: async (id) => {
     try {
-      const event = await Event.findByPk(id,{
-       
+      const event = await Event.findByPk(id, {
         include: {
           model: File,
           as: "files",
@@ -52,7 +51,7 @@ const eventDatabase = {
     }));
 
     if (files.length > 0) {
-   const fileMapCreate= filesCreate.map(async (file) => {
+      const fileMapCreate = filesCreate.map(async (file) => {
         const fileMap = await File.create(file);
         if (!fileMap) return console.log("no register files");
         await EventFile.create({
@@ -62,7 +61,7 @@ const eventDatabase = {
         });
       });
 
-      return { responseEvent,fileMapCreate };
+      return { responseEvent, fileMapCreate };
     }
   },
   update: async (body) => {
@@ -76,36 +75,35 @@ const eventDatabase = {
           attributes: ["id", "path", "file_name"],
         },
       });
-     
-       if (!event) throw "error whith search pk event!";
+
+      if (!event) throw "error whith search pk event!";
 
       await event.files.forEach((file) => {
-              fs.unlink(
+        fs.unlink(
           path.resolve("src", "public", "images", "events", file.file_name),
           (err) => {
             if (err) throw err;
             console.log("Arquivo deletado da pasta=> " + file.file_name);
           }
         );
-                 
       });
-      const fileDel = event.files.map(async file =>{
+      const fileDel = event.files.map(async (file) => {
         const respDel = await File.destroy({
           where: {
-            id:file.id,
+            id: file.id,
           },
         });
         if (respDel) console.log("file deletado com sucesso!");
-      })
+      });
       const filesCreate = files.map((file) => ({
         id: uuid(),
         path: file.path,
         file_name: file.filename,
         type: file.mimetype,
       }));
-   
+
       if (filesCreate.length > 0) {
-      filesCreate.map(async (file) => {
+        filesCreate.map(async (file) => {
           const fileMap = await File.create(file);
           if (!fileMap) return console.log("no register files");
           await EventFile.create({
@@ -126,14 +124,49 @@ const eventDatabase = {
           id,
         },
       });
-      
-     
+
       return responseEvent;
     } catch (error) {
       throw error.message;
     }
   },
+  delete: async (id) => {
+    const event = await Event.findByPk(id, {
+      include: {
+        model: File,
+        as: "files",
+        attributes: ["id", "path", "file_name"],
+      },
+    });
+    const evenDelete = Event.destroy({
+      where: {
+        id,
+      },
+    });
+    const { files } = event;
+    const filesDelete = files.map(async (file) => {
+      await File.destroy({
+        where: {
+          id: file.id,
+        },
+      });
+     
+    });
+    
+    
 
+   await files.map(({file_name}) => {
+  fs.unlink(
+        path.resolve("src", "public", "images", "events", file_name),
+        (err) => {
+          if (err) throw err;
+          console.log("Arquivo deletado da pasta");
+        }
+      );
+    });
+
+    return {evenDelete,filesDelete};
+  },
 };
 
 module.exports = { eventDatabase };
