@@ -1,4 +1,5 @@
-const { InformativeDatabase } = require("../database/services/informativeDatabase")
+
+const { InformativeDatabase} = require("../database/services/informativeDatabase")
 
 const informativeController = {
     index: async (req,res) =>{

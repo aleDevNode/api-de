@@ -50,8 +50,27 @@ const InformativeDatabase = {
   },
   delete: async (id) =>{
     try {
-      const informative = await Informative.findByPk(id)
-      return informative
+      const informative = await Informative.findByPk(id,{
+        include: {
+          model: File,
+          as: "file",
+          attributes: {
+            exclude: ["createdAt", "updatedAt"],
+          },
+        },
+      })
+      const {id:id_file,file_name} = informative.file
+      console.log(file_name);
+      const informativeDelete = await Informative.destroy({where:{id}})
+      const fileDelete = await File.destroy({where:{id:id_file}})
+
+      if(fileDelete && informative){
+       fs.unlink( path.resolve('src','public','uploads','files',file_name),(err)=>{
+         if(err) throw err;
+         console.log('Arquivo deletado da pasta');
+       })
+      }
+      return {fileDelete,informativeDelete}
     } catch (error) {
       throw error.message
     }
