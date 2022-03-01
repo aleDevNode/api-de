@@ -5,6 +5,7 @@ node_modules
 ./src/public/images/*
 ./src/public/uploads/avatar/*
 **/*/avatar
+src/public/uploads/files/
 # ale-1228579ALE senha do serviçodebug.log
 Logs
 logs
