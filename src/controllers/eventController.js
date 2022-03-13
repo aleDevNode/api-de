@@ -21,6 +21,7 @@ const eventController = {
     }
   },
   create: async (req, res) => {
+    
     try {
       const files = req.files.map((file) => ({
         ...file,
