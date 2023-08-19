@@ -2,7 +2,7 @@
     "openapi": "3.0.0",
     "info": {
         "description": "<h3>Um Sitema que utiliza uma API-REST para gerenciar uma locadora de veículos e oferecer varios serviços para device destintos.</h3>",
-        "title": "Loca-Car",
+        "title": "Projeto DE",
         "termsOfService": "http://localhost:3000/terms",
         "contact": {
             "email": "asovitorio@gmail.com"
